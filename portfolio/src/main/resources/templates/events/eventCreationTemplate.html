@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="eventCreationTemplate(start, end)">
+<body>
+<!-- Event Pane -->
+<div class="card d-flex gap-2">
+    <!-- Event Pane Header -->
+    <div class="col-md-12 d-flex flex-nowrap" style="font-size: 1.25rem; display: inline-block; background: none; border: none;">
+        <div class="col-md-9" style="background: none; border: none; display: inline-block; padding: 0 0 0 10px;">
+            <i class="bi bi-calendar-fill"></i>
+            <label for="newEventName" class="form-label">Event Name</label>
+            <input type="text" oninput="updateEventCharInfo()" maxlength="50" placeholder="Event Name" value="New Event" id="newEventName" class="form-control" required />
+            <div class="invalid-feedback">Event Name can't be Empty!</div>
+        </div>
+        <div class="col-md-2 align-self-end ms-1" id="charRemainingEventCreation" style="background: none; border: none; display: inline-block; font-size: 10px; color: gray;"></div>
+
+    </div>
+
+    <!-- Event Pane Body -->
+    <div class="col-md-12 p-0" style="background: none; border: none;">
+        <div class="col-md-12 d-flex" style="padding: 0 0 0 10px; background: none; border: none;">
+            <div class="col-md-1 p-0" style="background: none; border: none; display: inline-block;">
+                <i class="bi bi-play-circle"></i>
+            </div>
+            <div class="col-md-11 p-0" style="background: none; border: none; display: inline-block;">
+                <div class="col-md-6 p-0" style="background: none; border: none; display: inline-block;">
+                    <label for="newEventStartDate" class="form-label">Start Date</label>
+                    <input id="newEventStartDate" type="date" class="form-control" th:min="${start}" th:max="${end}" th:value="${start}" required />
+                    <div id="invalid-feedback-event-start" class="invalid-feedback">Event Start Date must be before Event End Date!</div>
+                </div>
+                <div class="col-md-5 p-0" style="background: none; border: none; display: inline-block;">
+                    <label for="newEventStartTime" class="form-label">Start Time</label>
+                    <input id="newEventStartTime" type="time" class="form-control" value="00:00" />
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-12 d-flex" style="padding: 0 0 0 10px; background: none; border: none;">
+            <div class="col-md-1 p-0" style="background: none; border: none; display: inline-block;">
+                <i class="bi bi-flag-fill"></i>
+            </div>
+            <div class="col-md-11 p-0" style="background: none; border: none; display: inline-block;">
+                <div class="col-md-6 p-0" style="background: none; border: none; display: inline-block;">
+                    <label for="newEventEndDate" class="form-label">End Date</label>
+                    <input id="newEventEndDate" type="date" class="form-control" th:min="${start}" th:max="${end}" th:value="${end}" required />
+                    <div id="invalid-feedback-event-end" class="invalid-feedback">Event Start Date must be before Event End Date!</div>
+                </div>
+                <div class="col-md-5 p-0" style="background: none; border: none; display: inline-block;">
+                    <label for="newEventEndTime" class="form-label">End Time</label>
+                    <input id="newEventEndTime" type="time" class="form-control" value="00:00" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 d-flex justify-content-center" style="background: none; border: none;">
+            <button class="btn btn-primary" onclick="validateCreationForm()" style="margin: 10px;">Create</button>
+            <button class="btn btn-danger" onclick="cancelEventCreate()" style="margin: 10px;">Cancel</button>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

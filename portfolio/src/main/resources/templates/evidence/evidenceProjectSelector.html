@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="projectSelector(projects, projectSelected, project, myEvidence, viewingUserId)">
+<body>
+<div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-test="selectProject">Select Project</button>
+    <ul class="dropdown-menu" th:if="${myEvidence}">
+        <li th:if="${projectSelected}" th:each="prj : ${projects}">
+            <a th:if="${prj.getId() == project.getId()}" class="dropdown-item active" href="#" th:onclick="|changeProjectAndPersist(${prj.getId()})|" aria-current="true" th:data-test="${prj.getName()}" th:text="${prj.getName()}"></a>
+            <a th:unless="${prj.getId() == project.getId()}" class="dropdown-item" href="#" th:onclick="|changeProjectAndPersist(${prj.getId()})|" th:data-test="${prj.getName()}" th:text="${prj.getName()}"></a>
+        </li>
+        <li th:unless="${projectSelected}" th:each="prj : ${projects}">
+            <a class="dropdown-item" href="#" th:onclick="|changeProjectAndPersist(${prj.getId()})|" th:data-test="${prj.getName()}" th:text="${prj.getName()}"></a>
+        </li>
+        <li th:if="${projects.size() == 0}">
+            <span>This user doesn't belong to any projects</span>
+        </li>
+    </ul>
+    <ul class="dropdown-menu" th:unless="${myEvidence}">
+        <li th:if="${projectSelected}" th:each="prj : ${projects}">
+            <a th:if="${prj.getId() == project.getId()}" class="dropdown-item active" th:href="|evidence?userId=${viewingUserId}&projectId=${prj.getId()}|" aria-current="true" th:text="${prj.getName()}"></a>
+            <a th:unless="${prj.getId() == project.getId()}" class="dropdown-item" th:href="|evidence?userId=${viewingUserId}&projectId=${prj.getId()}|" th:text="${prj.getName()}"></a>
+        </li>
+        <li th:unless="${projectSelected}" th:each="prj : ${projects}">
+            <a class="dropdown-item" th:href="|evidence?userId=${viewingUserId}&projectId=${prj.getId()}|" th:text="${prj.getName()}"></a>
+        </li>
+        <li th:if="${projects.size() == 0}">
+            <span>This user doesn't belong to any projects</span>
+        </li>
+    </ul>
+</div>
+<h4 th:unless="${projectSelected}">No Project Selected!</h4>
+</body>
+</html>

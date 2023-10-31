@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<ul th:if="${autocompleteSkills.size() > 0}" class="dropdown-menu" id="skillResultDropdown">
+    <li th:each="skill,iters : ${autocompleteSkills}" th:if="${iters.index < 5}">
+        <a href="#" onclick="handleAutocomplete(event)" th:data-test="|${skill}-dropdown|" class="dropdown-item" th:text="${skill}"></a>
+    </li>
+</ul>
+</body>
+</html>

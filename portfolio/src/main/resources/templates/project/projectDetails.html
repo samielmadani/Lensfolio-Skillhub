@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="projectDetails(project, isAdmin)">
+<head>
+    <script th:src="@{js/project.js}"></script>
+    <style>
+        .project-details-header {
+            font-size: larger;
+        }
+
+        .project-details-header span{
+            font-size: medium;
+            color: var(--bs-gray-800);
+        }
+    </style>
+</head>
+<body>
+    <div class="d-flex flex-row justify-content-between">
+        <div>
+            <!-- Details -->
+            <div id="projectDetails">
+                <p class="project-details-header">Dates: <span id="projectStartDetails" th:text="${project.getFormattedStartDate()}"/> - <span id="projectEndDetails" th:text="${project.getFormattedEndDate()}"/></p>
+                <p class="project-details-header">Description: <span id="projectDescriptionDetails" th:text="${project.getDescription()}"/> </p>
+            </div>
+
+            <!-- Edit Dialog -->
+            <div hidden style="max-width: 500px;" id="projectEditDetails">
+                <form>
+                    <div th:insert="project/projectDatePicker :: projectDatePicker(project=${project})"></div>
+
+                    <div data-test="projectName" class="input-group input-group my-3">
+                        <span data-test="projectName" class="input-group-text">Title</span>
+                        <input data-test="projectName" th:data-test="${project.getName()}" id="projectName" type="text" class="form-control" th:value="${project.getName()}" />
+                        <div id="projectName-feedback" class="invalid-tooltip">
+                            Not an acceptable input
+                        </div>
+                    </div>
+
+                    <div class="input-group my-2">
+                        <div class="input-group-prepend">
+                            <span style="height: 100%;" class="input-group-text">Description</span>
+                        </div>
+                        <textarea class="form-control"
+                                  aria-label="Description"
+                                  id="projectDescription"
+                                  th:text="${project.getDescription()}"></textarea>
+                        <div id="projectDescription-feedback" class="invalid-tooltip">
+                            Not an acceptable input
+                        </div>
+                    </div>
+
+                    <!--Buttons-->
+                    <div style="width: 100%; gap: 0.5rem" class="d-flex justify-content-end mb-3">
+                        <button data-test="saveButton" onclick="saveProjectDetails()" class="btn btn-success" type="button">Save</button>
+                        <button onclick="toggleProjectEdit()" class="btn btn-danger" type="button">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div th:if="${isAdmin}" class="gap-3">
+            <button id="projectEditButton" onclick="toggleProjectEdit()" class="btn btn-success" data-test="projectEditButton">Edit</button>
+        </div>
+    </div>
+</body>
+</html>

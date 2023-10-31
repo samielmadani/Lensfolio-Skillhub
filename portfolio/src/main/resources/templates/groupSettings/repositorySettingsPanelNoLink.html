@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="repositorySettingsPanelNoLink(linkedMessage, groupId, repository)">
+<body>
+<div class="card shadow-sm p-2" style="width: 90%">
+    <div class="row">
+        <h3 class="col-md-auto">Group Repository Settings - </h3>
+        <p id="repositoryStatusMessage" class="col-md-auto m-0 align-self-center" style="color: red; font-style: italic;" th:text="${linkedMessage}"></p>
+    </div>
+
+    <form class="row" onsubmit="return false" style="width: 100%;">
+        <div class="col-md-3">
+            <label for="linkRepoKey" class="form-label" style="margin-bottom: 0; font-style: italic; color: darkgray;">Link Repo API Key</label>
+            <input type="text" placeholder="Repo API Key" id="linkRepoKey" th:value="${repository.getRepoAPIKey()}" class="form-control" />
+        </div>
+        <div class="col-md-2">
+            <label for="repoProjectIdInput" class="form-label" style="margin-bottom: 0; font-style: italic; color: darkgray;">Repository Project ID</label>
+            <input type="number" placeholder="Repository Project ID" id="repoProjectIdInput" th:value="${repository.getProjectId()}" class="form-control" />
+        </div>
+        <div class="col-md-auto">
+            <button class="btn btn-primary mb-3" style="margin-top: 22px; margin-bottom: 0;" th:onclick="|linkRepository(${groupId})|">Link</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

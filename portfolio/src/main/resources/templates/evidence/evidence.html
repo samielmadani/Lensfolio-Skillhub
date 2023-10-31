@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link th:href="@{webjars/bootstrap/5.2.0/dist/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{webjars/bootstrap-icons/1.8.1/font/bootstrap-icons.css}" rel="stylesheet">
+    <link th:href="@{css/header.css}" rel="stylesheet">
+    <link th:href="@{css/evidence.css}" rel="stylesheet">
+    <script th:src="@{webjars/bootstrap/5.2.0/dist/js/bootstrap.bundle.js}" type="text/javascript"></script>
+    <script th:src="@{webjars/jquery/3.6.0/dist/jquery.js}" type="text/javascript"></script>
+    <script th:src="@{js/evidence/evidence.js}" type="text/javascript"></script>
+    <script th:src="@{js/evidence/webLink.js}" type="text/javascript"></script>
+    <script th:src="@{js/evidence/skill.js}" type="text/javascript"></script>
+    <script th:src="@{js/evidence/categories.js}" type="text/javascript"></script>
+    <script th:src="@{js/evidence/updateEvidence.js}" type="text/javascript"></script>
+    <script th:src="@{js/evidence/evidenceUsers.js}" type="text/javascript"></script>
+    <script th:src="@{js/evidence/commit.js}" type="text/javascript"></script>
+    <meta charset="UTF-8">
+    <title>Skillhub: Evidence</title>
+</head>
+
+<script>
+    const currentProject = [[${currentProjectId}]]
+    $(document).ready(function(){
+        const myEvidence = [[${myEvidence}]]
+        $('[data-bs-toggle="tooltip"]').tooltip();
+    });
+</script>
+
+<body class="d-flex flex-column">
+<!-- Navbar -->
+<div th:insert="fragments/navbar :: navbar"></div>
+<div class="header">
+    <div class="dropdown-content">
+        <a th:href="@{user_details}">User Details</a>
+        <a th:href="@{logout}">Logout</a>
+    </div>
+    <button th:id="userName" class="dropbtn" th:value="*{username}" th:text="${username}"></button>
+    <div>
+        <img src="api/user/profilePicture" alt="User" style="width: 50px; height: 50px; border-radius: 50%;">
+    </div>
+</div>
+
+<div th:if="${projectSelected}" th:insert="evidence/evidenceCreationModal :: evidenceCreationModal(project=${project}, groups=${groups}, sprints=${sprints})"></div>
+
+<div style="position: absolute; left: 250px; top: 55px;" class="m-2" th:insert="evidence/evidenceProjectSelector :: projectSelector(${projects}, ${projectSelected}, ${project}, ${myEvidence}, ${viewingUserId})"></div>
+
+<!-- Content -->
+<div class="d-flex flex-row" style="align-items: stretch;" th:if="${projectSelected}">
+    <!-- Sidebar -->
+    <nav class="card bg-light sidebar" style="min-width: 250px; max-width: 250px; min-height: 10vh; max-height: 88vh">
+        <div id="evidence-category-area">
+            <h5 class="m-2" style="margin-bottom: 0 !important;">Categories</h5>
+            <a class="m-2" th:href="|evidenceCategory?category=Quantitative Skill&projectId=${project.getId()}|" style="font-style: italic; color: dimgray;">Quantitative Skills</a><br>
+            <a class="m-2" th:href="|evidenceCategory?category=Qualitative Skill&projectId=${project.getId()}|" style="font-style: italic; color: dimgray;">Qualitative Skills</a><br>
+            <a class="m-2" th:href="|evidenceCategory?category=Service&projectId=${project.getId()}|" style="font-style: italic; color: dimgray;">Service</a>
+        </div>
+        <div id="evidence-skill-area">
+            <h5 class="m-2" th:if="${myEvidence}">My Skills</h5>
+            <h5 class="m-2" th:unless="${myEvidence}">Skills</h5>
+            <ol th:each="tag: ${userSkills}" style="display: inline-flex; margin-bottom: 0; padding-left: 0;">
+                <a th:id="|skill-${tag.toLowerCase()}|" class="pill" style="color: black; text-decoration: none;" th:text="${tag}" th:href="|evidenceSkill?skill=${tag}&projectId=${project.getId()}|"></a>
+            </ol>
+        </div>
+        <div id="evidence-short-list" class="evidenceList">
+            <!-- Put evidence links here -->
+            <div th:if="${!evidenceList}" th:each="eachEvidence: *{evidence}" th:id="|evidenceLink${eachEvidence.getId()}|">
+                <a th:href="${'#' + eachEvidence.getId()}" class='evidenceLink' th:text="${eachEvidence.getName()}"> </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div th:id="content" style="width: 100%; margin-left: 250px" class="d-flex gap-3 flex-column align-content-center">
+        <!-- Content Header -->
+        <div style="width: 100%; text-align: center">
+            <h1 class="p-4" style="display: inline-block;">Evidence</h1>
+
+            <!-- Create Button -->
+            <div th:if="${myEvidence}" style="display: inline-block;" class="d-flex flex-column align-items-center p-3">
+                <button data-test="createEvidence" data-bs-toggle="modal" th:data-bs-target="|#evidence-creation-pane|" th:onclick="resetEvidenceCreationForm()" style="width: fit-content; border-radius: 100px; border-width: 3px; padding: 0;" class="btn btn-outline-success">
+                    <svg width="35" height="35" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Content Start -->
+        <!-- INSERT EVIDENCE PANE HERE -->
+        <div th:id="evidencePaneContainer" class="d-flex gap-3 flex-column align-content-center" th:each="eachEvidence: *{evidence}">
+            <div th:replace="evidence/evidencePane :: evidencePane(evidence=${eachEvidence}, viewingUserId=${viewingUserId}, project=${project})"> </div>
+        </div>
+        <div th:if="${evidenceList}" id="evidencePaneContainer" class="d-flex gap-3 flex-column align-content-center">
+            <h4 style="align-self: center">No evidence exists currently</h4>
+        </div>
+        <!-- Content End -->
+    </div>
+</div>
+
+<div th:insert="fragments/errorToast :: errorToast"></div>
+
+</body>
+</html>

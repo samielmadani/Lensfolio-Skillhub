@@ -1,0 +1,43 @@
+.dropbtn {
+    background-color: lightgray;
+    color: black;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    width: 160px;
+    float: right;
+    height: 50px;
+    box-shadow: none;
+}
+
+.header {
+    background-color: lightgray;
+    position: absolute;
+    display: inline-block;
+    right: 0;
+    top: 0;
+    width: 220px;
+    height: 55px;
+}
+
+.dropdown-content {
+    display: block;
+    position: absolute;
+    background-color: lightgray;
+    width: 220px;
+    right: 0;
+    top: 50px;
+    z-index: 1;
+    visibility: hidden;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.header:hover .dropdown-content {visibility: visible;}

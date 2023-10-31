@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="evidenceCommit(users)">
+<body>
+<li th:each="user: ${users}">
+  <a class="dropdown-item" href="#" th:text="${user}" th:data-user="${user}" onclick="updateUserFilter(this)"></a>
+</li>
+<li><hr class="dropdown-divider"></li>
+<li><a class="dropdown-item" href="#" onclick="updateUserFilter(this)" data-user="">Clear</a></li>
+</body>
+</html>

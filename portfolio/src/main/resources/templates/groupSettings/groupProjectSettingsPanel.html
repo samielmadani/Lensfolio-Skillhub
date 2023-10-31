@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="groupProjectSettingsPanel(groupLongName, groupShortName, groupId, projects, allProjects, isAdmin)">
+<body>
+<div class="card shadow-sm p-2" style="width: 90%">
+    <h3>Linked Projects</h3>
+    <div class="d-flex justify-content-center align-items-center" style="flex-wrap: wrap">
+        <div id="linkedProjects" class="d-flex justify-content-center align-items-center gap-2" style="flex-wrap: wrap">
+            <div th:id="|projectLink-${project.getId()}|" th:each="project: ${projects}">
+
+                <div th:insert="groupSettings/project :: project(${project}, ${groupId})"></div>
+
+            </div>
+        </div>
+
+        <div th:if="*{projects.size() < 1}">
+            <h5 id="hiddenLabel" class="mb-0">No linked projects.</h5>
+        </div>
+
+        <div th:unless="*{projects.size() < 1}">
+            <h5 id="hiddenLabel" class="mb-0" hidden>No linked projects.</h5>
+        </div>
+
+        <div class="m-2" id="addProjectButton" th:if="${isAdmin}">
+            <div class="dropdown">
+                <a title="Link Project" style="width: fit-content; border-radius: 100px; border-width: 3px; padding: 0;" href="#" class="btn btn-outline-success" data-bs-toggle="dropdown" aria-expanded="false">
+                    <svg width="35" height="35" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                    </svg>
+                </a>
+
+                <ul class="dropdown-menu" th:id="|dropdown-${groupId}|">
+                    <li th:each="project: ${allProjects}">
+                        <a class="dropdown-item" href="#" th:id="|projectDropdown-${project.getId()}|" th:text="${project.getName()}" th:onclick="|linkProject(${project.getId()}, ${groupId})|"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

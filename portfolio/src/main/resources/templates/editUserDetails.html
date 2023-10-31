@@ -1,0 +1,211 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Skillhub: Edit Profile</title>
+    <link th:href="@{webjars/bootstrap/5.2.0/dist/css/bootstrap.css}" rel="stylesheet">
+    <script th:src="@{webjars/bootstrap/5.2.0/dist/js/bootstrap.bundle.js}" type="text/javascript"></script>
+    <script th:src="@{webjars/croppie/2.6.5/croppie.js}" type="text/javascript"></script>
+    <link th:href="@{webjars/croppie/2.6.5/croppie.css}" rel="stylesheet">
+    <link th:href="@{css/header.css}" rel="stylesheet">
+    <link th:href="@{css/edituserdetails.css}" rel="stylesheet">
+    <script th:src="@{js/profilePicHandler.js}"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body class="d-flex flex-column" style="background-color: white; height: 100vh">
+
+<div th:insert="fragments/navbar :: navbar"></div>
+<div id='user_details'></div>
+
+<!-- Header -->
+<div class="header">
+    <div class="dropdown-content">
+        <a th:href="@{user_details}">User Details</a>
+        <a th:href="@{logout}">Logout</a>
+    </div>
+    <button class="dropbtn" th:text="${username}"></button>
+    <div>
+        <img src="api/user/profilePicture" alt="User" style="width: 50px; height: 50px; border-radius: 50%;">
+    </div>
+</div>
+
+<!--Edit user details page-->
+<div class="d-flex" style="margin: 1rem;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profilePic">
+                <img src="api/user/profilePicture" alt="User" style="width: 200px; height: 200px; border-radius: 50%;">
+                <button class="profilePicButton" data-bs-toggle="modal" data-bs-target="#profilePicModal">Change Photo</button>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="data">
+                    <h1 th:text="${fullName}"></h1>
+                    <p class="user_details_roles chip chip-list px-3 clickable" th:text="${role}"></p>
+                    <div class="users_data">
+                        <div class="data">
+                            <h4>Member since</h4><p th:text="${registrationDate}"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-2">
+                <div class="button">
+                    <form method="GET" th:action=@{editPassword}>
+                        <input class="btn btn-lg btn-primary btn-login btn-block loginBtn" type="submit" value="Change Password">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-8">
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="mt-1"></div>
+                 <form method="POST" th:object="${pronouns}" th:action="@{editUserDetails}">
+                <div class=userInput>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>First Name<b class="required">*</b></label>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="data form-input">
+                            <input type="firstName" data-test="editFirstName" th:value="${firstName}" th:name="firstName" placeholder="Enter First Name" name="firstName" id="firstName">
+                             <span id="error"><p th:text="${firstNameError}"></p></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Middle Name</label>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="data form-input">
+                                <input type="middleName" data-test="editMiddleName" th:value="${middleName}" th:name="middleName" placeholder="Enter Middle Name" name="middleName" id="middleName">
+                                <span id="error"><p th:text="${middleNameError}"></p></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Last Name<b class="required">*</b></label>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="data form-input">
+                                <input type="lastName" data-test="editLastName" th:value="${lastName}" th:name="lastName"  placeholder="Enter Last Name" name="lastName" id="lastName">
+                                <span id="error"><p th:text="${lastNameError}"></p></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Nickname</label>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="data form-input">
+                                <input type="nickname" data-test="editNickname" th:value="${nickname}" th:name="nickname" placeholder="Enter Nick Name" name="nickname" id="nickname">
+                                <span id="error"><p th:text="${nicknameError}"></p></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Email<b class="required">*</b></label>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="data form-input">
+                                <input type="email" th:value="${email}" th:name="email"  placeholder="Enter Email" name="email" id="email">
+                                <span id="error"><p th:text="${emailError}"></p></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Biography</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="data form-input">
+                                <input type="bio" th:value="${bio}" data-test="editBio" th:name="bio" placeholder="Enter Bio" name="bio" id="bio">
+                                <span id="error"><p th:text="${bioError}"></p></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="personalPronoun">Personal Pronouns</label>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="data form-input">
+                                <select th:field="*{pronoun}">
+                                    <option th:each="pronoun : ${personalPronouns}"
+                                            th:value="${pronoun}"
+                                            th:text="${pronoun}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6"></div>
+
+                    <p th:text="${isSuccess}"></p>
+
+                    <div class="button">
+                        <div class="submit-button">
+                            <input class="btn btn-lg btn-primary btn-login btn-block" type="submit" value="Update Details">
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="profilePicModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Upload Profile Picture</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex row justify-content-center">
+                <input onchange="processImage()" id="userImageUpload" type="file" accept="image/png, image/jpeg">
+                <div id="croppieImageEl" style="width: 200px; height: 200px; margin-bottom: 50px;" class="col-md-12"></div>
+                <div class="col-md-12 d-flex row justify-content-center">
+                    <button onclick="uploadImage()" id="uploadImageButton" class="btn btn-primary col-md-auto m-1" disabled>Save New Profile Picture</button>
+                    <button onclick="deleteImage()" class="btn btn-danger col-md-auto m-1">Delete Old Profile Picture</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

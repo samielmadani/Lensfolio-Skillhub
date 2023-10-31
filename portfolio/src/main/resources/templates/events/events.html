@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="events(allEvents)">
+<body>
+<div id="getAllEventsNoneFound" th:if="${allEvents.isEmpty()}">No Events For this Project!</div>
+<div th:each="event: *{allEvents}">
+    <div th:insert="events/eventPane :: eventPane(event=${event})"></div>
+</div>
+</body>
+</html>

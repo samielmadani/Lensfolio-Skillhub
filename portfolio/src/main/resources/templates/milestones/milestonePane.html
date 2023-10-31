@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="milestonePane(milestone)">
+<body>
+<!-- Milestone Pane -->
+<div class="card d-flex milestone shadow-sm" th:data-start="${milestone.getStartDateTimeString()}" th:data-id="${milestone.getMilestoneId()}" th:id="|MilestoneCard${milestone.getMilestoneId()}|"
+     th:onmouseenter="'animateAllMilestoneAttributes('+${milestone.getMilestoneId()}+')'" th:onmouseleave="'stopAnimationForMilestone('+${milestone.getMilestoneId()}+')'" th:onclick="'persistMilestoneAnimations('+${milestone.getMilestoneId()}+')'">
+    <!-- Milestone Pane Header -->
+    <p th:id="'MilestoneCardUpdateText' + *{milestone.getMilestoneId()}" class="col-md-12 p-0 m-0" style="font-size: 15px; background: none; border: none; color: dimgrey;"></p>
+    <div class="col-md-12" style="padding-top: 0; font-size: 1.25rem; font-weight: bold; background: none; border: none;">
+        <div class="col-md-9" style="background: none; border: none; display: inline-block; padding: 0 0 0 10px;" >
+            <i th:name="'MilestoneIcon' + ${milestone.getMilestoneId()}" class="bi bi-flag-fill milestoneIcon" style="display: inline-block;"></i>
+            <p style="display: inline-block;" th:text="*{milestone.getName()}"></p>
+
+            <div th:id="'MilestoneSprintColours' + *{milestone.getMilestoneId()}" style="display: inline-block;">
+                <!-- Insert Sprint Colours here -->
+            </div>
+        </div>
+
+        <!-- Edit/Delete Buttons Start -->
+        <div th:if="*{isAdmin}" class="col-md-1 p-0" style="font-size: 1rem; background: none; border: none; display: inline-block;">
+            <button th:id="|${milestone.getMilestoneId()}-editButton|" th:onclick="'requestUpdateMilestone('+*{milestone.getMilestoneId()}+')'" class="bi bi-gear" style="background: none; border: none; color: gray;"></button>
+        </div>
+        <div th:if="*{isAdmin}" class="col-md-1 p-0" style="font-size: 1rem; background: none; border: none; display: inline-block;">
+            <button th:id="|${milestone.getMilestoneId()}-deleteButton|" th:onclick= "'removeMilestone('+*{milestone.getMilestoneId()}+')'" class="bi bi-trash" style="background: none; border: none; color: red;"></button>
+        </div>
+        <!-- Edit/Delete Buttons Finish -->
+
+    </div>
+
+    <!-- Milestone Pane Body -->
+    <div class="col-md-12 p-0" style="background: none; border: none;">
+        <div class="col-md-12 d-flex" style="padding: 0 0 0 10px; background: none; border: none;">
+            <div class="col-md-1 p-0" style="background: none; border: none; display: inline-block;">
+                <i class="bi bi-play-circle"></i>
+            </div>
+            <div class="col-md-11 p-0" style="background: none; border: none; display: inline-block;">
+                <p class="m-0" th:id="'MilestoneStart'+ *{milestone.getMilestoneId()}" th:text="*{milestone.getStartDateTimeString()}"></p>
+            </div>
+        </div>
+
+        <div class="col-md-12 d-flex" style="padding: 0 0 0 10px; background: none; border: none;">
+            <div class="col-md-1 p-0" style="background: none; border: none; display: inline-block;">
+                <i class="bi bi-flag-fill"></i>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="userLine(user)">
+<body>
+    <div class="row" style="width: 100%;">
+        <!-- Name -->
+        <div class="col-auto me-auto" th:text="${user.getName()}"></div>
+        <!-- Roles -->
+        <div class="col-auto" style="padding: 0 0 0 2px;" th:each="role: ${user.getRoles()}">
+            <span class="badge bg-secondary" th:text="${role}"></span>
+        </div>
+    </div>
+</body>
+</html>

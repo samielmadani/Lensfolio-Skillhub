@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="chip(role, user, canClose, isAdmin)">
+<body>
+
+    <div th:text="${role}"></div>
+    <i th:if="${canClose && isAdmin}" class="bi bi-x-lg clickable" th:data-role="${role}" th:onclick="|removeRole(${user.getId()}, this.getAttribute('data-role'))|"></i>
+
+
+</body>
+</html>

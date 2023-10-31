@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="webLinkCreation()">
+<body>
+    <label class="form-label"></label>
+    <div class="row d-flex">
+        <div class="col-10">
+            <input onkeydown="addWebLink()" placeholder="Web Link" value="" id="newWebLink" class="form-control" required />
+            <div class="invalid-feedback" id="webLinkErrorMessage">Invalid URL</div>
+        </div>
+        <div class="col-2" style="padding-left: 0px;">
+            <button onclick="handleNewWebLink()" id="webLink-creation-button" disabled type="button" class="btn btn-success">Add</button>
+        </div>
+    </div>
+
+</body>
+</html>

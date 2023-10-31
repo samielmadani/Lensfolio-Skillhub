@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="repositoryCommit(repositoryCommit)">
+<body>
+    <div style="margin: 5px; border: 1px solid lightgray; padding: 2px; border-radius: 20px">
+        <h4 th:text="${repositoryCommit.getCommitName()}"></h4>
+        <h6 th:text="${repositoryCommit.getUserName()}"></h6>
+    </div>
+
+</body>
+</html>

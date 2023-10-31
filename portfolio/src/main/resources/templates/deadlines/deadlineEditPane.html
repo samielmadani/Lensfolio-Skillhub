@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="deadlineEditPane(deadline, start, end)">
+<body>
+<!-- Deadline Pane -->
+<div th:id="'DeadlineUpdate' + ${deadline.getDeadlineId()}" class="card d-flex">
+    <!-- Deadline Pane Header -->
+    <div class="col-md-12 d-flex flex-nowrap" style="font-size: 1.25rem; display: inline-block; background: none; border: none;">
+        <div class="col-md-9" style="background: none; border: none; display: inline-block; padding: 0 0 0 10px;">
+            <i class="bi bi-alarm-fill"></i>
+            <label for="deadlineUpdateName" class="form-label">Deadline Name</label>
+            <input oninput="updateDeadlineCharInfoEdit()" maxlength="50" type="text" placeholder="Deadline Name" th:value="${deadline.getName()}" id="deadlineUpdateName" class="form-control" required />
+            <div class="invalid-feedback">Deadline Name can't be Empty!</div>
+        </div>
+        <div class="col-md-2 align-self-end ms-1" id="charRemainingDeadlineEdit" style="background: none; border: none; display: inline-block; font-size: 10px; color: gray;"></div>
+
+    </div>
+
+    <!-- Deadline Pane Body -->
+    <div class="col-md-12 p-0" style="background: none; border: none;">
+        <div class="col-md-12 d-flex" style="padding: 0 0 0 10px; background: none; border: none;">
+            <div class="col-md-1 p-0" style="background: none; border: none; display: inline-block;">
+                <i class="bi bi-play-circle"></i>
+            </div>
+            <div class="col-md-11 p-0" style="background: none; border: none; display: inline-block;">
+                <div class="col-md-6 p-0" style="background: none; border: none; display: inline-block;">
+                    <label for="deadlineUpdateStartDate" class="form-label">Date</label>
+                    <input id="deadlineUpdateStartDate" type="date" class="form-control" th:min="${start}" th:max="${end}" th:value="${deadline.getStartDateISOString()}" required />
+                    <div class="invalid-feedback">Deadline Start Date must be before Deadline End Date!</div>
+                </div>
+                <div class="col-md-5 p-0" style="background: none; border: none; display: inline-block;">
+                    <label for="deadlineUpdateStartTime" class="form-label">Time</label>
+                    <input id="deadlineUpdateStartTime" type="time" class="form-control" th:value="${deadline.getStartTime()}" />
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-12 d-flex justify-content-center" style="padding: 0 0 0 10px; background: none; border: none;">
+            <button class="btn btn-primary" th:onclick="'validateDeadlineUpdateForm('+*{deadline.getDeadlineId()}+')'" style="margin: 10px;">Update</button>
+            <button class="btn btn-danger" th:onclick="'cancelDeadlineUpdate('+*{deadline.getDeadlineId()}+')'" style="margin: 10px;">Cancel</button>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

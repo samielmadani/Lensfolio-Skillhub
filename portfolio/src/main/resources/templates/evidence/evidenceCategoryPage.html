@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <link th:href="@{webjars/bootstrap/5.2.0/dist/css/bootstrap.css}" rel="stylesheet">
+  <link th:href="@{webjars/bootstrap-icons/1.8.1/font/bootstrap-icons.css}" rel="stylesheet">
+  <link th:href="@{css/header.css}" rel="stylesheet">
+  <link th:href="@{css/evidence.css}" rel="stylesheet">
+  <script th:src="@{webjars/bootstrap/5.2.0/dist/js/bootstrap.bundle.js}" type="text/javascript"></script>
+  <script th:src="@{webjars/jquery/3.6.0/dist/jquery.js}" type="text/javascript"></script>
+  <script th:src="@{js/evidence/evidence.js}" type="text/javascript"></script>
+  <script th:src="@{js/evidence/webLink.js}" type="text/javascript"></script>
+  <script th:src="@{js/evidence/skill.js}" type="text/javascript"></script>
+  <script th:src="@{js/evidence/categories.js}" type="text/javascript"></script>
+  <script th:src="@{js/evidence/updateEvidence.js}" type="text/javascript"></script>
+  <script th:src="@{js/evidence/evidenceUsers.js}" type="text/javascript"></script>
+  <script th:src="@{js/evidence/commit.js}" type="text/javascript"></script>
+  <meta charset="UTF-8">
+  <title>Evidence</title>
+</head>
+
+<script>
+  const currentProject = [[${currentProjectId}]]
+</script>
+
+<body class="d-flex flex-column">
+<!-- Navbar -->
+<div th:insert="fragments/navbar :: navbar"></div>
+<div class="header">
+  <div class="dropdown-content">
+    <a th:href="@{user_details}">User Details</a>
+    <a th:href="@{logout}">Logout</a>
+  </div>
+  <button id="userName" class="dropbtn" th:value="*{username}" th:text="${username}"></button>
+  <div>
+    <img src="api/user/profilePicture" alt="User" style="width: 50px; height: 50px; border-radius: 50%;">
+  </div>
+</div>
+
+<div th:insert="evidence/evidenceCreationModal :: evidenceCreationModal(project=${project}, groups=${groups}, sprints=${sprints})"></div>
+
+<!-- Content -->
+<div class="d-flex flex-row" style="align-items: stretch;">
+  <!-- Sidebar -->
+  <nav class="card bg-light sidebar" style="min-width: 250px; max-width: 250px; min-height: 10vh; max-height: 88vh">
+    <a class="btn btn-primary" href="evidence">My Evidence</a>
+    <div class="evidenceList">
+      <!-- Put evidence links here -->
+      <div th:each="evidence: ${allEvidence}">
+        <a th:href="|#${evidence.getId()}|" class="evidenceLink" th:text="${evidence.getName()}"></a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div id="content" style="width: 100%; margin-left: 250px" class="d-flex gap-3 flex-column align-content-center">
+    <!-- Content Header -->
+    <div style="width: 100%; text-align: center">
+      <h1 class="p-4" style="display: inline-block;" th:text="|Evidence - ${category}|"></h1>
+    </div>
+
+    <!-- Content Start -->
+    <!-- INSERT EVIDENCE PANE HERE -->
+    <div class="d-flex gap-3 flex-column align-content-center" th:each="evidence: ${allEvidence}">
+      <evidence  th:replace="evidence/evidencePane :: evidencePane(${evidence}, ${viewingUserId}, ${project})"></evidence>
+    </div>
+    <div th:if="${allEvidence.size() == 0}" class="d-flex justify-content-center">
+      <h4 th:text="|No evidence found for category ${category}|"></h4>
+    </div>
+    <!-- Content End -->
+  </div>
+</div>
+</body>
+</html>

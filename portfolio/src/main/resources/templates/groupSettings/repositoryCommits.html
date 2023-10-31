@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="repositoryCommits(commits, branchName)">
+<body>
+
+<div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" th:data-branch="${branchName}" th:id="'branchCheckbox' + *{branchName}" onchange="checkboxChanged(this)">
+    <label class="form-check-label" th:for="'branchCheckbox' + *{branchName}">Show More</label>
+</div>
+
+<div th:each="commit: ${commits}">
+    <div th:insert="groupSettings/repositoryCommit :: repositoryCommit(${commit})"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="eventLineDisplay(event)">
+<body>
+<div style="display: inline-flex; padding: 0px; margin: 0px;" th:name="'EventPartial' + ${event.getAdventId()}"
+     th:onmouseenter="'animateAllEventAttributes('+${event.getAdventId()}+')'" th:onmouseleave="'stopAnimationForEvent('+${event.getAdventId()}+')'">
+    <i th:name="'EventIcon' + ${event.getAdventId()}" class="px-2 bi bi-calendar-fill eventIcon" style="display: inline;"></i>
+    <div>
+        <p th:text="${event.getName()} + '  '" style="display: flex; padding: 0; margin: 0; white-space: nowrap;"></p>
+        <p hidden id="startDate" th:name="'startDate' + ${event.getAdventId()}" th:text="${event.getStartDate()}  + '  '"
+           style="display: inline-flex; padding: 0; margin: 0; white-space: nowrap; font-size:13px;"></p>
+        <p hidden id="endDate" th:name="'endDate'+ ${event.getAdventId()}"  th:text="${event.getEndDate()}  + '  '"
+           style="display: inline-flex; padding: 0; margin: 0; white-space: nowrap; font-size:13px;"></p>
+        <p id = "padding" th:name="'padding' + ${event.getAdventId()}" style="display: inline; padding: 13px; margin: 0; white-space: nowrap; font-size:13px;"></p>
+    </div>
+</div>
+</body>
+</html>

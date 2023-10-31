@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="project(project, groupId)">
+
+<div name="projectName" th:id="|project-*{project.getId()}|" th:data-projectname="${project.getName()}">
+    <form th:action="@{project}" method="get">
+        <input type="hidden" th:name="projectID" th:value="*{project.getId()}"/>
+        <div style="width: 100%;" class="d-flex justify-content-center">
+            <button class="btn btn-success border-left" type="submit" th:text="${project.getName()}"></button>
+            <button class="btn btn-success border-right" type="button" th:onclick="|unlinkProject(${project.getId()}, ${groupId})|"><i class="bi bi-x-lg"></i></button>
+        </div>
+    </form>
+</div>
+</html>

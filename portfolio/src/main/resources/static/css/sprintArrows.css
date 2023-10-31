@@ -1,0 +1,95 @@
+.fc-direction-ltr .sprintEvent.fc-daygrid-event.fc-event-start,
+.fc-direction-rtl .fc-daygrid-event.fc-event-end {
+    margin-left: 9px;
+}
+
+.fc-direction-ltr .sprintEvent.fc-daygrid-event.fc-event-start:before,
+.fc-direction-rtl .fc-daygrid-event.fc-event-end:before {
+    content: "";
+    color: black;
+    position: absolute;
+    top: 1.5px;
+    left:-20px;
+    z-index: 1;
+    border: solid 10px transparent;
+    border-right-color: #000000;
+}
+
+.fc-direction-ltr .sprintEvent.fc-daygrid-event.fc-event-end,
+.fc-direction-rtl .fc-daygrid-event.fc-event-start {
+    margin-right: 9px;
+}
+
+.fc-direction-ltr .sprintEvent.fc-daygrid-event.fc-event-end:after,
+.fc-direction-rtl .fc-daygrid-event.fc-event-start:after
+{
+    content: "";
+    color: black;
+    position: absolute;
+    top: 1.5px;
+    right:-20px;
+    z-index: 1;
+    border: solid 10px transparent;
+    border-left-color: #000000;
+}
+
+.eventCalendar.fc-daygrid-dot-event {
+    display: flex;
+    align-items: center;
+    padding: 2px 0;
+    position: relative;
+    top: 25px;
+}
+
+.fc .fc-daygrid-day-frame {
+    position: relative;
+    min-height: 150px;
+}
+
+.deadlineCalendarNoEvent.fc-daygrid-dot-event {
+    display: flex;
+    align-items: center;
+    padding: 2px 0;
+    position: relative;
+    top: 25px;
+}
+
+.deadlineCalendarNoSprint.fc-daygrid-dot-event {
+    display: flex;
+    align-items: center;
+    padding: 2px 0;
+    position: relative;
+    top: 50px;
+}
+
+.milestoneCalendarNoSprint.fc-daygrid-dot-event {
+    display: flex;
+    align-items: center;
+    padding: 2px 0;
+    position: relative;
+    top: 75px;
+}
+
+.milestoneCalendarDeadline.fc-daygrid-dot-event {
+    display: flex;
+    align-items: center;
+    padding: 2px 0;
+    position: relative;
+    top: 50px;
+}
+
+.milestoneCalendarNoDeadline.fc-daygrid-dot-event {
+    display: flex;
+    align-items: center;
+    padding: 2px 0;
+    position: relative;
+    top: 25px;
+}
+
+.milestoneCalendarNoEvent.fc-daygrid-dot-event {
+    display: flex;
+    align-items: center;
+    padding: 2px 0;
+    position: relative;
+    top: 50px;
+}

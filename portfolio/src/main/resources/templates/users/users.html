@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Skillhub: Users</title>
+
+    <link th:href="@{webjars/bootstrap/5.2.0/dist/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{webjars/bootstrap-icons/1.8.1/font/bootstrap-icons.css}" rel="stylesheet">
+    <link th:href="@{css/header.css}" rel="stylesheet">
+    <link th:href="@{css/users.css}" rel="stylesheet">
+    <link th:href="@{css/main.css}" rel="stylesheet">
+    <script th:src="@{js/users.js}" type="text/javascript"></script>
+    <script th:src="@{webjars/bootstrap/5.2.0/dist/js/bootstrap.bundle.js}" type="text/javascript"></script>
+
+    <script th:inline="javascript">
+        let currentPage = 1;
+        let maxPage = [[${numberOfPages}]];
+    </script>
+</head>
+<body class="d-flex flex-column" style="height: 100vh">
+    <div th:insert="fragments/navbar :: navbar"></div>
+    <div class="header">
+        <div class="dropdown-content">
+            <a th:href="@{user_details}">User Details</a>
+            <a th:href="@{logout}">Logout</a>
+        </div>
+        <button id="userName" class="dropbtn" th:value="*{username}" th:text="${username}"></button>
+        <div>
+            <img src="api/user/profilePicture" alt="User" style="width: 50px; height: 50px; border-radius: 50%;">
+        </div>
+    </div>
+
+
+    <div class="centered-content gap-0">
+
+        <h1>Users</h1>
+
+        <div th:replace="users/usersSearch :: searchBar()"></div>
+        <div th:replace="users/userListControls :: controls(${userState}, ${pageSize}, ${numberOfPages})"></div>
+        <div th:replace="users/userList :: list(${users}, ${userState}, ${isAdmin})"></div>
+
+    </div>
+
+    <div th:replace="fragments/errorToast :: errorToast"></div>
+
+</body>
+</html>

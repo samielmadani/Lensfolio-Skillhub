@@ -1,0 +1,198 @@
+.evidenceLink {
+    text-decoration: none;
+    color: white;
+    width: 100%;
+    display: block;
+    padding: 5px;
+}
+
+.evidenceLink:hover {
+    color: white;
+}
+
+.evidenceList {
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+
+.evidenceList div {
+    display: block;
+    margin: 15px;
+    width: 85%;
+    border: 1px solid steelblue;
+    border-radius: 15px;
+    background-color: steelblue;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: white;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.userButton {
+    border: none;
+    background: none;
+    width: 100%;
+}
+
+.userButton:hover {
+    background: #757575;
+}
+
+.userDropdown {
+    z-index: 1;
+    overflow-y: scroll;
+    max-height: 200px;
+    position: fixed;
+    background: white;
+}
+
+.userSearchArea {
+    transition: opacity 0.1s ease-out;
+}
+
+.userLink {
+    display: inline-block;
+    color: white;
+    font-style: italic;
+    text-decoration: none;
+    text-align: start;
+    margin-bottom: 0;
+}
+
+.userLink:hover {
+    text-decoration: underline;
+    color: #dfdfdf;
+}
+
+.sidebar {
+    position: fixed;
+    overflow-y: auto;
+}
+
+.webLinkList{
+    padding-left: 0;
+    bottom: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.listElement {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+}
+
+.listElement:hover {
+    color : red;
+}
+
+#current-tags {
+    width: 100%;
+    margin-right: -240px;
+    margin-top: 10px;
+}
+
+.pill {
+    font-size: 12px;
+    font-family: "Readex Pro", sans-serif;
+    padding: 0.25em 1em;
+    margin: 0.25em;
+    border-radius: 1em;
+    border: none;
+    outline: none;
+    background: #dddddd;
+    cursor: pointer;
+}
+
+.chip {
+    display: inline-block;
+    padding: 0 10px;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 20px;
+    background-color: #f1f1f1;
+}
+
+.chipWithButton {
+    padding-right: 10px;
+    border-radius: 20px 0px 0px 20px;
+    float: right;
+}
+
+/*.chip:hover {*/
+/*    background: #cccccc;*/
+/*}*/
+
+/*.whole-tag{*/
+/*    background: #cccccc;*/
+/*}*/
+
+.delete-icon{
+    position: relative;
+    /*right: 15px;*/
+}
+
+.delete-icon:hover{
+    color: #dc3545;
+    /*background-color: #cccccc;*/
+}
+
+.delete-icon:hover + .btn-edit{
+    /*background-color: #cccccc;*/
+}
+
+.btn-edit {
+    /*box-sizing: content-box;*/
+    /*padding: 0.25em 0.25em;*/
+    /*color: #000;*/
+    border: 0;
+    border-radius: 0px 20px 20px 0px;
+    padding: 0px 10px 0px 4px;
+    margin-right: 5px;
+    /*border-radius: 0.25rem;*/
+    /*opacity: .5;*/
+}
+
+.btn-edit:hover {
+    background: #cccccc;
+
+}
+
+.edit-input {
+    border: 0 solid white;
+    padding: 0px 0px 0px 10px;
+    width: 100px;
+    border-radius: 5px;
+    box-shadow: inset 0 0 0 1px #198754;
+}
+
+.edit-input-error {
+    /*border-style: solid;*/
+    /*border-width: thin;*/
+    /*border-color: #dc3545;*/
+    /*border-radius: 5px 5px 5px 5px;**/
+    /*padding: 0px 0px 0px 0px;*/
+    /*width: 100px;*/
+    border-radius: 5px;
+    box-shadow: inset 0 0 0 1px #dc3545;
+}
+
+
+.edit-input:focus, input:focus {
+    outline: none;
+}
+
+
+.pill:hover {
+    background: #cccccc;
+}
+
+a.close {
+/*// set size, background image, etc.*/
+    display: block;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}

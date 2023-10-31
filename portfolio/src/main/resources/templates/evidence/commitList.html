@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="commitList(commits)">
+<body>
+<h5 th:if="${noRepository}">This group doesn't have a repository linked.</h5>
+<h5 th:if="${!noRepository && commits.size() == 0}">No Commits Found.</h5>
+<div th:unless="${noRepository}" th:each="commit: ${commits}">
+  <div th:replace="evidence/evidenceCommit :: evidenceCommit(${commit})"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="eventPane(event)">
+<body>
+<!-- Event Pane -->
+<div class="card d-flex event shadow-sm" th:data-start="${event.getStartDateTimeString()}" th:data-id="${event.getEventId()}" th:id="|EventCard${event.getEventId()}|"
+     th:onmouseenter="'animateAllEventAttributes('+${event.getEventId()}+')'" th:onmouseleave="'stopAnimationForEvent('+${event.getEventId()}+')'" th:onclick="'persistEventAnimations('+${event.getEventId()}+')'">
+    <!-- Event Pane Header -->
+    <p th:id="'EventCardUpdateText' + *{event.getEventId()}" class="col-md-12 p-0 m-0" style="font-size: 15px; background: none; border: none; color: dimgrey;"></p>
+    <div class="col-md-12" style="padding-top: 0; font-size: 1.25rem; font-weight: bold; background: none; border: none;">
+        <div class="col-md-9" style="background: none; border: none; display: inline-block; padding: 0 0 0 10px;" >
+            <i th:name="'EventIcon' + ${event.getEventId()}" class="bi bi-calendar-fill eventIcon" style="display: inline-block;"></i>
+            <p style="display: inline-block;" th:text="*{event.getName()}"></p>
+
+
+            <div th:id="'EventSprintColours' + *{event.getEventId()}" style="display: inline-block;">
+                <!-- Insert Sprint Colours here -->
+            </div>
+        </div>
+
+        <!-- Edit/Delete Buttons Start -->
+        <div th:if="*{isAdmin}" class="col-md-1 p-0" style="font-size: 1rem; background: none; border: none; display: inline-block;">
+            <button th:id="|${event.getEventId()}-editButton|" th:onclick="'requestUpdateEvent('+*{event.getEventId()}+')'" class="bi bi-gear" style="background: none; border: none; color: gray;"></button>
+        </div>
+        <div th:if="*{isAdmin}" class="col-md-1 p-0" style="font-size: 1rem; background: none; border: none; display: inline-block;">
+            <button th:id="|${event.getEventId()}-deleteButton|" th:onclick= "'removeEvent('+*{event.getEventId()}+')'" class="bi bi-trash" style="background: none; border: none; color: red;"></button>
+        </div>
+        <!-- Edit/Delete Buttons Finish -->
+
+    </div>
+
+    <!-- Event Pane Body -->
+    <div class="col-md-12 p-0" style="background: none; border: none;">
+        <div class="col-md-12 d-flex" style="padding: 0 0 0 10px; background: none; border: none;">
+            <div class="col-md-1 p-0" style="background: none; border: none; display: inline-block;">
+                <i class="bi bi-play-circle"></i>
+            </div>
+            <div class="col-md-11 p-0" style="background: none; border: none; display: inline-block;">
+                <p th:id="'EventStart'+ *{event.getEventId()}" class="m-0" th:text="*{event.getStartDateTimeString()}"></p>
+            </div>
+        </div>
+
+        <div class="col-md-12 d-flex" style="padding: 0 0 0 10px; background: none; border: none;">
+            <div class="col-md-1 p-0" style="background: none; border: none; display: inline-block;">
+                <i class="bi bi-flag-fill"></i>
+            </div>
+            <div class="col-md-11 p-0" style="background: none; border: none; display: inline-block;">
+                <p th:id="'EventEnd'+ *{event.getEventId()} " class="m-0" th:text="*{event.getEndDateTimeString()}"></p>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

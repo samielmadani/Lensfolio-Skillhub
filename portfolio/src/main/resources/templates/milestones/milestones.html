@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="milestones(allMilestones)">
+<body>
+<div id="getAllMilestonesNoneFound" th:if="${allMilestones.isEmpty()}">No Milestones For this Project!</div>
+<div th:each="milestone: *{allMilestones}">
+    <div th:insert="milestones/milestonePane :: milestonePane(milestone=${milestone})"></div>
+</div>
+</body>
+</html>

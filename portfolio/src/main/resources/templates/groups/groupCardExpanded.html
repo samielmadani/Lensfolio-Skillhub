@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="content(id, users)">
+<body>
+
+<!-- Group Card Expanded Content-->
+<div style="width: 100%">
+    <!-- List of Users -->
+    <div th:replace="groups/userList :: list(${id}, ${users})"></div>
+    <div th:id="|group-${id}-page-buttons|" class="d-flex justify-content-center mt-3" th:insert="groups/paginationButtons"></div>
+</div>
+
+</body>
+</html>

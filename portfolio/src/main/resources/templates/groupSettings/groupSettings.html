@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Skillhub: Group Settings</title>
+
+    <link th:href="@{webjars/bootstrap-icons/1.8.1/font/bootstrap-icons.css}" rel="stylesheet">
+    <link th:href="@{webjars/bootstrap/5.2.0/dist/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{css/header.css}" rel="stylesheet">
+    <link th:href="@{css/groupSettings.css}" rel="stylesheet">
+    <script th:src="@{webjars/bootstrap/5.2.0/dist/js/bootstrap.bundle.js}" type="text/javascript"></script>
+    <script th:src="@{js/groupSettings.js}" type="text/javascript"></script>
+</head>
+<script th:inline="javascript">
+    //repository information passed from thymeleaf
+    const repository = [[${repository}]]
+</script>
+<body class="d-flex flex-column">
+    <div th:insert="fragments/navbar :: navbar"></div>
+    <div class="header">
+        <div class="dropdown-content">
+            <a th:href="@{user_details}">User Details</a>
+            <a th:href="@{logout}">Logout</a>
+        </div>
+        <button id="userName" class="dropbtn" th:value="*{username}" th:text="${username}"></button>
+        <div>
+            <img src="api/user/profilePicture" alt="User" style="width: 50px; height: 50px; border-radius: 50%;">
+        </div>
+    </div>
+
+    <!-- Content Start -->
+    <div class="d-flex flex-row" style="align-items: stretch;">
+        <!-- User Panel -->
+        <div style="max-width: 25%; min-width: 25%;">
+            <div class="card shadow-sm" style="width: 90%; margin: 20px; height: 100%;" th:insert="groupSettings/userPane :: userPane(${users})"></div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="d-flex flex-column gap-2" style="width: 75%;">
+            <!-- MAIN TITLE -->
+            <h1 style="margin-top: 20px;" th:text="${groupShortName} + ' Settings'"></h1>
+
+            <div th:insert="groupSettings/groupProjectSettingsPanel :: groupProjectSettingsPanel(${groupLongName}, ${groupShortName}, ${groupId}, ${projects}, ${allProjects}, ${isAdmin})"></div>
+
+            <div th:insert="groupSettings/groupSettingsPanel :: groupSettingsPanel(${groupLongName}, ${groupShortName}, ${groupId})"></div>
+
+            <div th:if="${repositoryLinked}">
+                <div th:insert="groupSettings/repositorySettingsPanel :: repositorySettingsPanel(${repository}, ${groupId})"></div>
+            </div>
+            <div th:unless="${repositoryLinked}">
+                <div th:insert="groupSettings/repositorySettingsPanelNoLink :: repositorySettingsPanelNoLink(${linkedMessage}, ${groupId}, ${repository})"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Content End -->
+<div th:insert="fragments/errorToast :: errorToast()"></div>
+</body>
+</html>

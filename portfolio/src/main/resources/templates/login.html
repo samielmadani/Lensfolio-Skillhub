@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Skillhub: Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link th:href="@{css/login.css}" rel="stylesheet">
+    <link th:href="@{webjars/bootstrap/5.2.0/dist/css/bootstrap.css}" rel="stylesheet">
+</head>
+<body>
+
+<div class="container-fluid ps-md-0">
+    <div class="row">
+    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+        <div class="col-lg-6">
+            <div class="login d-flex align-items-center py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-9 col-lg-8 mx-auto">
+                            <h3 class="login-heading mb-4">Welcome to Skillhub!</h3>
+
+        <form class="form-box mb-3" method="POST" th:action="@{login}" novalidate>
+            <span><i class="fa fa-envelope-o"></i></span>
+            <div class="data form-input">
+                <input type="text" name="username" class="form-control" id="uname" data-test="username" placeholder="Enter username" required/>
+            </div>
+
+            <div class="data form-input">
+                <span><i class="fa fa-key"></i></span>
+                <input type="password" placeholder="Enter password" name="password" data-test="password" class="form-control" id="psw" required/>
+            </div>
+
+            <div class="mb-5">
+                <button class="btn btn-lg btn-primary btn-login btn-block loginBtn m-0" data-test="login" type="submit">LOGIN</button>
+                <div class="alert-light alert-dismissible fade show">
+                    <strong id="error" data-test="loginMessage" th:text="${loginMessage}"></strong>
+                </div>
+            </div>
+        </form>
+
+                <form method="GET" th:action="@{register}">
+                    <div class="text-center mb-2 create_account">
+                        Don't have account? <a th:href="@{register}" data-test="registerRedirect">Create account</a>
+                    </div>
+                </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

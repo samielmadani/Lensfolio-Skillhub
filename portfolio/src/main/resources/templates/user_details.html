@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Skillhub: Profile</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link th:href="@{webjars/bootstrap/5.2.0/dist/css/bootstrap.css}" rel="stylesheet">
+  <link th:href="@{css/user_details.css}" rel="stylesheet">
+  <link th:href="@{css/header.css}" rel="stylesheet">
+  <script th:src="@{webjars/bootstrap/5.2.0/dist/js/bootstrap.bundle.js}" type="text/javascript"></script>
+</head>
+
+<body class="d-flex flex-column" style="background-color: white; height: 100vh">
+<div th:insert="fragments/navbar :: navbar"></div>
+<div id='user_details'></div>
+<div class="header">
+  <div class="dropdown-content">
+    <a th:href="@{user_details}">User Details</a>
+    <a th:href="@{logout}">Logout</a>
+  </div>
+    <button class="dropbtn" data-test="userDropdown" th:if="${myDetails}" th:text="${username}"></button>
+    <button class="dropbtn" th:unless="${myDetails}" th:text="${userViewingName}"></button>
+  <div>
+      <img src="api/user/profilePicture" alt="User" style="width: 50px; height: 50px; border-radius: 50%;">
+  </div>
+
+</div>
+
+<div class="d-flex" style="margin: 1rem;">
+    <div class="container">
+        <div class="row">
+        <div class="col-md-4">
+            <div class="profilePic">
+            <img th:if="${myDetails}" src="api/user/profilePicture" alt="User" style="width: 200px; height: 200px; border-radius: 50%;">
+                <img th:unless="${myDetails}" th:src="|api/user/profilePicture?userId=${userId}|" alt="User" style="width: 200px; height: 200px; border-radius: 50%;">
+
+            </div>
+        </div>
+            <div class="col-md-6">
+                    <div class="data">
+                        <h1 th:text="${fullName}"></h1>
+                        <p class="user_details_roles chip chip-list px-3 clickable" data-test="roles" th:text="${role}"></p>
+                        <div class="users_data">
+                            <div class="data">
+                                <h4>Member since</h4><p data-test="registrationDate" th:text="${registrationDate}"></p>
+                            </div>
+                        </div>
+
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                        </li>
+                    </ul>
+                    </div>
+            </div>
+
+            <div class="col-md-2" th:if="${myDetails}">
+                <div class="edit_details_button">
+                    <form method="GET" th:action="@{editUserDetails}">
+                        <button data-test="editUserDetailsButton" class="btn btn-primary btn-login btn-block loginBtn" type="submit">Edit Details</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4"></div>
+                  <div class="col-md-8">
+                      <div class="tab-content profile-tab" id="myTabContent">
+                          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                              <div></div>
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <label>Username</label>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="data">
+                                        <p data-test="username" th:text="${username}"></p>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <label>First Name</label>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="data">
+                                      <p data-test="firstname" th:text="${firstName}"></p>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <div class="row">
+                                  <div class="col-md-6 mt-1">
+                                      <label>Middle Name</label>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="data">
+                                          <p data-test="middlename" th:text="${middleName}"></p>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <label>Last Name</label>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="data">
+                                          <p data-test="lastname" th:text="${lastName}"></p>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <label>Nick Name</label>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="data">
+                                          <p data-test="nickname" th:text="${nickname}"></p>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <label>Email</label>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="data">
+                                        <p data-test="email" th:text="${email}"></p>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <label>Personal Pronouns</label>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="data">
+                                          <p data-test="pronouns" th:text="${personalPronouns}"></p>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <label>Biography</label>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="data">
+                                            <p data-test="bio" th:text="${bio}"></p>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+      </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+th, td {
+    width: 1% !important;
+    white-space: nowrap !important;
+}
+
+.table {
+    width: 100%;
+    overflow-x: auto;
+    font-size: medium;
+}
+
+.chip {
+    display: inline-block;
+    padding: 0 25px;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 25px;
+    background-color: #f1f1f1;
+}
+
+
+.chip.chip-list {
+    display: inline-flex;
+    width: fit-content;
+    background-color: lightgray;
+}
+
+.head-btn {
+    color: white;
+}
+
+.selected-column {
+    font-weight: bold;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+#controls > div > .btn {
+    border: none !important;
+}

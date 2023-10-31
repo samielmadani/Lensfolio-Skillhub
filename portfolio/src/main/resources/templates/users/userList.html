@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="list(users, userState, isAdmin)">
+<body>
+    <table class="table table-striped">
+        <!-- Table header -->
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">
+                    <button id="username-header" th:class="|head-btn btn ${userState.getSortBy() == 'Username'? 'selected-column show' : ''}|"
+                            th:onclick="|sortBy('Username')|">
+                        Username <i th:hidden="${userState.getSortBy() != 'Username'}" th:class="|bi arrow bi-arrow-${userState.isAscending? 'up' : 'down'}|"></i>
+                    </button>
+                </th>
+                <th scope="col">
+                    <button id="name-header" th:class="|head-btn btn ${userState.getSortBy() == 'Name'? 'selected-column show' : ''}|"
+                            th:onclick="|sortBy('Name')|">
+                        Name <i th:hidden="${userState.getSortBy() != 'Name'}" th:class="|bi arrow bi-arrow-${userState.isAscending? 'up' : 'down'}|"></i>
+                    </button>
+                </th>
+                <th scope="col">
+                    <button id="nickname-header" th:class="|head-btn btn ${userState.getSortBy() == 'Nickname'? 'selected-column show' : ''}|"
+                            th:onclick="|sortBy('Nickname')|">
+                        Nickname <i th:hidden="${userState.getSortBy() != 'Nickname'}" th:class="|bi arrow bi-arrow-${userState.isAscending? 'up' : 'down'}|"></i>
+                    </button>
+                </th>
+                <th scope="col">
+                    <button id="role-header" th:class="|head-btn btn ${userState.getSortBy() == 'Role'? 'selected-column show' : ''}|"
+                            th:onclick="|sortBy('Role')|">
+                        Roles <i th:hidden="${userState.getSortBy() != 'Role'}" th:class="|bi arrow bi-arrow-${userState.isAscending? 'up' : 'down'}|"></i>
+                    </button>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody th:insert="users/userTableBody :: tableBody(${users}, ${isAdmin})" id="userTableBody" class="table-group-divider"></tbody>
+
+    </table>
+</body>
+</html>

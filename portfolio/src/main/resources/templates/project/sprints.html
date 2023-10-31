@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="sprints(sprints, project, isAdmin)">
+<head>
+    <script th:src="@{js/sprints.js}"></script>
+</head>
+<body>
+
+<div class="d-flex flex-row gap-3">
+    <div id="timelineContainer" class="timeline d-flex">
+        <div id="adventTimelineDisplay" style="width: 20px; background-color: blue; border-radius: 40px; border: 5px; visibility: hidden;"></div>
+    </div>
+
+    <div class="d-flex gap-3 flex-column flex-grow-1">
+        <!-- Project start sprints -->
+        <div id="ProjectStart"></div>
+
+        <!-- Sprints Are Injected Here -->
+        <div id="sprintContainer" class="d-flex gap-3 flex-column align-content-center" style="text-align: center">
+            <h1 id="noSprintMessage"> There are currently no sprints for this project.</h1>
+        </div>
+
+        <!--Add Sprint Button-->
+        <div th:if="${isAdmin}" style=" padding: 10px 0 10px 0; width: 100%; background-color: white; position: sticky; bottom: 0;" class="d-flex flex-column align-items-center">
+            <button onclick="createSprint()" style="width: fit-content; border-radius: 100px; border-width: 3px; padding: 0" class="btn btn-outline-success">
+                <svg width="35" height="35" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

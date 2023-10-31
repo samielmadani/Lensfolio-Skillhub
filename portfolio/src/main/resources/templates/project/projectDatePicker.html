@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="projectDatePicker(project)">
+    <script th:inline="javascript">
+        /**
+         * Get startDateBounds from java backend
+         */
+        const getProjectStartDateBounds = async () => {
+            const selectedEndDate =  document.getElementById("projectEndDate").value;
+            const response = await fetch("api/project/getStartDateBounds?projectId=" + projectId + "&endDate=" + selectedEndDate)
+
+            if (response.status === 200) {
+                const results = await response.json();
+                document.getElementById("projectStartDate").setAttribute("min", results[0])
+                document.getElementById("projectStartDate").setAttribute("max", results[1])
+            } else {
+                console.log(response)
+            }
+        }
+
+        /**
+         * Get endDateBounds from java backend
+         */
+        const getProjectEndDateBounds = async () => {
+            const selectedStartDate =  document.getElementById("projectStartDate").value;
+            const response = await fetch("api/project/getEndDateBounds?projectId=" + projectId + "&startDate=" + selectedStartDate)
+
+            if (response.status === 200) {
+                const results = await response.json();
+                document.getElementById("projectEndDate").setAttribute("min", results[0])
+                document.getElementById("projectEndDate").setAttribute("max", results[1])
+            } else {
+                console.log(response)
+            }
+        }
+    </script>
+
+    <body>
+    <div class="d-flex flex-column gap-1">
+        <div class="d-flex flex-row gap-1">
+            <div class="input-group-sm d-flex">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="startDateLabel">Start</span>
+                </div>
+                <input type="date"
+                       id="projectStartDate"
+                       class="form-control"
+                       aria-describedby="startDate"
+                       onchange="getProjectEndDateBounds()"
+                       onkeydown="return false"
+                       data-test="projectStartDate"
+                       th:value="${project.getStartDateIsoString()}">
+            </div>
+
+            <div class="input-group-sm d-flex">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="endDateLabel">End</span>
+                </div>
+                <input type="date"
+                       id="projectEndDate"
+                       class="form-control"
+                       aria-describedby="endDate"
+                       onchange="getProjectStartDateBounds()"
+                       onkeydown="return false"
+                       th:value="${project.getEndDateIsoString()}">
+            </div>
+        </div>
+        <p hidden id="projectDateFeedback" style="color: var(--bs-danger)" class="m-0">There is something wrong with the dates.</p>
+    </div>
+    </body>
+</html>
+
+
+

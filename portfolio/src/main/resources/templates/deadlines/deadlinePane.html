@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="deadlinePane(deadline)">
+<body>
+<!-- Deadline Pane -->
+<div class="card d-flex deadline shadow-sm" th:data-start="${deadline.getStartDateTimeString()}" th:data-id="${deadline.getDeadlineId()}" th:id="|DeadlineCard${deadline.getDeadlineId()}|"
+     th:onmouseenter="'animateAllDeadlineAttributes('+${deadline.getDeadlineId()}+')'" th:onmouseleave="'stopAnimationForDeadline('+${deadline.getDeadlineId()}+')'" th:onclick="'persistDeadlineAnimations('+${deadline.getDeadlineId()}+')'">
+    <!-- Deadline Pane Header -->
+    <p th:id="'DeadlineCardUpdateText' + *{deadline.getDeadlineId()}" class="col-md-12 p-0 m-0" style="font-size: 15px; background: none; border: none; color: dimgrey;"></p>
+    <div class="col-md-12" style="padding-top: 0; font-size: 1.25rem; font-weight: bold; background: none; border: none;">
+        <div class="col-md-9" style="background: none; border: none; display: inline-block; padding: 0 0 0 10px;" >
+            <i th:name="'DeadlineIcon' + ${deadline.getDeadlineId()}" class="bi bi-alarm-fill deadlineIcon" style="display: inline-block;"></i>
+            <p style="display: inline-block;" th:text="*{deadline.getName()}"></p>
+
+            <div th:id="'DeadlineSprintColours' + *{deadline.getDeadlineId()}" style="display: inline-block;">
+                <!-- Insert Sprint Colours here -->
+            </div>
+        </div>
+
+        <!-- Edit/Delete Buttons Start -->
+        <div th:if="*{isAdmin}" class="col-md-1 p-0" style="font-size: 1rem; background: none; border: none; display: inline-block;">
+            <button th:id="|${deadline.getDeadlineId()}-editButton|" th:onclick="'requestUpdateDeadline('+*{deadline.getDeadlineId()}+')'" class="bi bi-gear" style="background: none; border: none; color: gray;"></button>
+        </div>
+        <div th:if="*{isAdmin}" class="col-md-1 p-0" style="font-size: 1rem; background: none; border: none; display: inline-block;">
+            <button th:id="|${deadline.getDeadlineId()}-deleteButton|" th:onclick= "'removeDeadline('+*{deadline.getDeadlineId()}+')'" class="bi bi-trash" style="background: none; border: none; color: red;"></button>
+        </div>
+        <!-- Edit/Delete Buttons Finish -->
+
+    </div>
+
+    <!-- Deadline Pane Body -->
+    <div class="col-md-12 p-0" style="background: none; border: none;">
+        <div class="col-md-12 d-flex" style="padding: 0 0 0 10px; background: none; border: none;">
+            <div class="col-md-1 p-0" style="background: none; border: none; display: inline-block;">
+                <i class="bi bi-play-circle"></i>
+            </div>
+            <div class="col-md-11 p-0" style="background: none; border: none; display: inline-block;">
+                <p th:id="'DeadlineStart'+ *{deadline.getDeadlineId()}" class="m-0" th:text="*{deadline.getStartDateTimeString()}"></p>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

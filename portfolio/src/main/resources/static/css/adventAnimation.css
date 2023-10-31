@@ -1,0 +1,93 @@
+/* SIDEBAR */
+#adventTimelineDisplay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+/* EVENTS */
+.eventAnimate {
+    animation-delay: -.75s;
+    animation-duration: .25s;
+    color: blue;
+}
+
+.eventIcon:nth-child(2n) {
+    animation-name: keyframes1;
+    animation-iteration-count: infinite;
+    transform-origin: 50% 10%;
+}
+
+.eventIcon:nth-child(2n-1) {
+    animation-name: keyframes2;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    transform-origin: 30% 5%;
+}
+
+/* DEADLINES */
+.deadlineAnimate {
+    animation-delay: -.75s;
+    animation-duration: .25s;
+    color: red;
+}
+
+.deadlineIcon:nth-child(2n) {
+    animation-name: keyframes1;
+    animation-iteration-count: infinite;
+    transform-origin: 50% 10%;
+}
+
+.deadlineIcon:nth-child(2n-1) {
+    animation-name: keyframes2;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    transform-origin: 30% 5%;
+}
+
+
+/* MILESTONES */
+.milestoneAnimate {
+    animation-delay: -.75s;
+    animation-duration: .25s;
+    color: green;
+}
+
+.milestoneIcon:nth-child(2n) {
+    animation-name: keyframes1;
+    animation-iteration-count: infinite;
+    transform-origin: 50% 10%;
+}
+
+.milestoneIcon:nth-child(2n-1) {
+    animation-name: keyframes2;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    transform-origin: 30% 5%;
+}
+
+/* KEYFRAMES */
+@keyframes keyframes1 {
+    0% {
+        transform: rotate(-4deg);
+        animation-timing-function: ease-in;
+    }
+
+    50% {
+        transform: rotate(6deg);
+        animation-timing-function: ease-out;
+    }
+}
+
+@keyframes keyframes2 {
+    0% {
+        transform: rotate(2deg);
+        animation-timing-function: ease-in;
+    }
+
+    50% {
+        transform: rotate(-6deg);
+        animation-timing-function: ease-out;
+    }
+}

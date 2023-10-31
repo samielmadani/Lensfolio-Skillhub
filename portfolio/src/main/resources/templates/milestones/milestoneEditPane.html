@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="milestoneEditPane(milestone, start, end)">
+<body>
+<!-- Milestone Pane -->
+<div th:id="'MilestoneUpdate' + ${milestone.getMilestoneId()}" class="card d-flex">
+    <!-- Milestone Pane Header -->
+    <div class="col-md-12 d-flex flex-nowrap" style="font-size: 1.25rem; display: inline-block; background: none; border: none;">
+        <div class="col-md-9" style="background: none; border: none; display: inline-block; padding: 0 0 0 10px;">
+            <i class="bi bi-flag-fill"></i>
+            <label for="milestoneUpdateName" class="form-label">Milestone Name</label>
+            <input oninput="updateMilestoneCharInfoEdit()" maxlength="50" type="text" placeholder="Milestone Name" th:value="${milestone.getName()}" id="milestoneUpdateName" class="form-control" required />
+            <div class="invalid-feedback">Milestone Name can't be Empty!</div>
+        </div>
+        <div class="col-md-2 align-self-end ms-1" id="charRemainingMilestoneEdit" style="background: none; border: none; display: inline-block; font-size: 10px; color: gray;"></div>
+
+    </div>
+
+    <!-- Milestone Pane Body -->
+    <div class="col-md-12 p-0" style="background: none; border: none;">
+        <div class="col-md-12 d-flex" style="padding: 0 0 0 10px; background: none; border: none;">
+            <div class="col-md-1 p-0" style="background: none; border: none; display: inline-block;">
+                <i class="bi bi-play-circle"></i>
+            </div>
+            <div class="col-md-11 p-0" style="background: none; border: none; display: inline-block;">
+                <div class="col-md-11 p-0" style="background: none; border: none; display: inline-block;">
+                    <label for="milestoneUpdateStartDate" class="form-label">Date</label>
+                    <input id="milestoneUpdateStartDate" type="date" class="form-control" th:min="${start}" th:max="${end}" th:value="${milestone.getStartDateISOString()}" required />
+                    <div class="invalid-feedback">Milestone Date must be within the project date range!</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 d-flex justify-content-center" style="padding: 0 0 0 10px; background: none; border: none;">
+            <button class="btn btn-primary" th:onclick="'validateMilestoneUpdateForm('+*{milestone.getMilestoneId()}+')'" style="margin: 10px;">Update</button>
+            <button class="btn btn-danger" th:onclick="'cancelMilestoneUpdate('+*{milestone.getMilestoneId()}+')'" style="margin: 10px;">Cancel</button>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

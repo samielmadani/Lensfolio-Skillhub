@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="milestoneLineDisplay(milestone)">
+<body>
+<div style="display: inline-flex; padding: 0px; margin: 0px;" th:name="'MilestonePartial' + ${milestone.getAdventId()}"
+     th:onmouseenter="'animateAllMilestoneAttributes('+${milestone.getAdventId()}+')'" th:onmouseleave="'stopAnimationForMilestone('+${milestone.getAdventId()}+')'">
+    <i th:name="'MilestoneIcon' + ${milestone.getAdventId()}" class="px-2 bi bi-flag-fill milestoneIcon" style="display: inline;"></i>
+    <div>
+        <p th:text="${milestone.getName()} + '  '" style="display: flex; padding: 0; margin: 0; white-space: nowrap;"></p>
+        <p hidden id="startDate" th:name="'startDate' + ${milestone.getAdventId()}" th:text="${milestone.getStartDate()}  + '  '"
+           style="display: inline-flex; padding: 0; margin: 0; white-space: nowrap; font-size:13px;"></p>
+        <p id="padding" style="display: inline; padding: 13px; margin: 0; white-space: nowrap; font-size:13px;"></p>
+    </div>
+</div>
+</body>
+</html>

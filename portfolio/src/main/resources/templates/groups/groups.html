@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <link th:href="@{webjars/bootstrap/5.2.0/dist/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{webjars/bootstrap-icons/1.8.1/font/bootstrap-icons.css}" rel="stylesheet">
+    <link th:href="@{css/header.css}" rel="stylesheet">
+    <link th:href="@{css/main.css}" rel="stylesheet">
+    <link th:href="@{css/users.css}" rel="stylesheet">
+    <link th:href="@{css/groups.css}" rel="stylesheet">
+    <script th:src="@{js/groups.js}" type="text/javascript"></script>
+    <script th:src="@{js/groupUserSearch.js}" type="text/javascript"></script>
+    <script th:src="@{webjars/bootstrap/5.2.0/dist/js/bootstrap.bundle.js}" type="text/javascript"></script>
+
+    <title>Skillhub: Groups</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<script th:inline="javascript">
+    const userId = [[${userId}]]
+    const isCourseAdmin = [[${courseAdmin}]]
+    const isAdmin = [[${isAdmin}]]
+</script>
+<body class="d-flex flex-column" style="height: 100vh">
+    <div th:insert="fragments/navbar :: navbar"></div>
+    <div class="header">
+        <div class="dropdown-content">
+            <a th:href="@{user_details}">User Details</a>
+            <a th:href="@{logout}">Logout</a>
+        </div>
+        <button id="userName" class="dropbtn" th:value="*{username}" th:text="${username}"></button>
+        <div>
+            <img src="api/user/profilePicture" alt="User" style="width: 50px; height: 50px; border-radius: 50%;">
+        </div>
+    </div>
+
+<div class="centered-content justify-content-between" style="position: relative">
+    <div class="d-flex flex-column gap-1">
+
+        <!-- Placeholder content -->
+        <h1>Groups</h1>
+
+        <!-- Group partial list here -->
+        <div id="groups" class="d-flex flex-column gap-3">
+            <div th:each="group: ${groups}" >
+                <div th:insert="groups/groupCard :: groupCard(${group.getGroup()}, ${group.isCanEdit()}, ${group.isDefault()}, ${group.isAdmin()}, ${group.getPages}, ${group.getUserIsCourseAdmin()}, ${group.getUsers()})"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- Controls -->
+<div th:if="${isAdmin}" class="d-flex justify-content-center" style=" padding: 10px 0 10px 0; width: 100%; background-color: white; position: sticky; bottom: 0;">
+    <div th:replace="groups/floatingControls :: controls"></div>
+</div>
+
+<div class="modal fade" id="addGroup" tabindex="-1" role="dialog" aria-labelledby="addGroupTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content" style="height: 50%">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addGroupTitle">New Group</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="newGroupBody">
+                    <label>Short Name:</label>
+                    <input type="text" required placeholder="Group Short Name" id="shortName" autocomplete="false" maxlength="15" oninput="updateCounts()">
+                    <p id="shortCount">15 Characters Remaining</p>
+                    <br>
+                    <label>Long Name:</label>
+                    <input type="text" required placeholder="Group Long Name" id="longName" autocomplete="false" maxlength="50" oninput="updateCounts()">
+                    <p id="longCount">50 Characters Remaining</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="createGroup()" data-bs-dismiss="modal" aria-label="Close">Create Group</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="removeSelectedUsers" tabindex="-1" role="dialog" aria-labelledby="addGroupTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content" style="height: 50%">
+            <div class="modal-header">
+                <h5 class="modal-title" id="removeSelectedTitle">Remove Selected Users</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="newGroupBody">
+                    <label>Are you sure you want to remove the selected users from their group?</label>
+                    <br>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" onclick="removeFromGroups()" data-bs-dismiss="modal" aria-label="Close">Remove</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addSelectedUsers" tabindex="-1" role="dialog" aria-labelledby="addGroupTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content" style="height: 50%">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addSelectedTitle">Add Selected Users</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="newGroupBody">
+                        <label>Are you sure you want to add the selected users to the group?</label>
+                        <br>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="addSelectedUsersToGroup()" data-bs-dismiss="modal" aria-label="Close">Add</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+    <div th:insert="fragments/errorToast :: errorToast"></div>
+</body>
+</html>

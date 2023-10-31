@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <link th:href="@{css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{css/header.css}" rel="stylesheet">
+    <link th:href="@{css/main.css}" rel="stylesheet">
+    <script th:src="@{js/bootstrap.js}" type="text/javascript"></script>
+
+    <title>Group Settings</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body class="d-flex flex-column">
+<div th:insert="fragments/navbar :: navbar"></div>
+<div class="header">
+    <div class="dropdown-content">
+        <a th:href="@{logout}">Logout</a>
+    </div>
+    <button id="userName" class="dropbtn" th:value="*{username}" th:text="${username}"></button>
+    <div>
+        <img src="api/user/profilePicture" alt="User" style="width: 50px; height: 50px; border-radius: 50%;">
+    </div>
+</div>
+
+<div class="centered-content" style="position: relative">
+    <div class="d-flex flex-column gap-1">
+        <!-- Placeholder content -->
+        <h1>Groups Options Page</h1>
+        <div class="d-flex flex-row justify-content-between">
+            <h2>Left</h2><h2>Right</h2>
+        </div>
+    </div>
+</div>
+
+<div th:insert="fragments/errorToast :: errorToast"></div>
+</body>
+</html>

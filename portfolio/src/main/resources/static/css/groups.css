@@ -1,0 +1,90 @@
+.bi {
+    font-size: x-large;
+}
+
+.expandedContent {
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+.button-copy-move {
+    overflow-y: hidden;
+    opacity: 0;
+    transition: max-height 0.2s, opacity 0.2s;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 0;
+}
+
+
+.toggleBtn {
+    transition: 0.2s;
+}
+
+.toggleBtn.down {
+    transform: rotate(-90deg);
+}
+
+.row {
+    border: 1px solid lightgrey;
+    padding: 2px;
+}
+
+.row :hover {
+    cursor: pointer;
+}
+
+.col {
+    border-left-width: 1px !important;
+    padding: 10px;
+}
+
+.selected {
+    border: 2px solid rgb(70, 130, 180);
+    padding: 1px;
+    background-color: rgba(70, 130, 180, 0.05);
+}
+
+.no-select {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
+
+.copy-move {
+    width: 100%;
+    margin: 0;
+    margin-top: 0.5rem !important;
+    background-color: rgb(70, 130, 180);
+    border-radius: 50px;
+}
+
+.floating-buttons-on, .floating-buttons-on:disabled {
+    max-height: 100%;
+    opacity: 1;
+    transition: max-height 0.2s, opacity 0.2s;
+}
+
+.floating-buttons-off, .floating-buttons-off:disabled {
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.2s, opacity 0.2s;
+}
+
+.page-link:focus {
+    z-index: initial;
+    color: initial;
+    background-color: initial;
+    outline: 0;
+    box-shadow: none;
+}
+
+.modal-content {
+    height: 53vh;
+}

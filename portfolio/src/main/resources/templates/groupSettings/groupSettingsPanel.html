@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="groupSettingsPanel(groupLongName, groupShortName, groupId)">
+<body>
+<div class="card shadow-sm p-2" style="width: 90%">
+    <h3>Group Settings</h3>
+    <form onsubmit="return false" class="row" style="width: 100%;">
+        <div class="col-md-auto" style="width: 40%">
+            <label for="groupLongNameInput" class="form-label" style="margin-bottom: 0; font-style: italic; color: darkgray;">Group Long Name</label>
+            <input type="text" placeholder="Group Long Name" id="groupLongNameInput" class="form-control" maxlength="50" autocomplete="false" oninput="updateCounts()" th:value="${groupLongName}"/>
+            <div class="invalid-feedback">Group Long Name can't be empty!</div>
+            <p id="longCount" th:text="${50 - groupLongName.length()} + ' Characters Remaining'"></p>
+        </div>
+        <div class="col-md-auto" style="width: 40%">
+            <label for="groupShortNameInput" class="form-label" style="margin-bottom: 0; font-style: italic; color: darkgray;">Group Short Name</label>
+            <input type="text" placeholder="Group Short Name" id="groupShortNameInput" class="form-control" maxlength="15" autocomplete="false" oninput="updateCounts()" th:value="${groupShortName}"/>
+            <div class="invalid-feedback">Group Short Name can't be empty!</div>
+            <p id="shortCount" th:text="${15 - groupShortName.length()} + ' Characters Remaining'"></p>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-primary mb-3" style="margin-top: 22px; margin-bottom: 0;" th:onclick="|updateGroupNames(${groupId})|">Update</button>
+        </div>
+    </form>
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="evidenceCommit(commit)">
+<body>
+<div class="card" onclick="toggleCommit(this)"
+     th:data-cid="${commit.getCommitId()}"
+     th:data-cname="${commit.getCommitName()}"
+     th:data-cuser="${commit.getCommitAuthor()}"
+     th:data-cdate="${commit.getCommitDate()}">
+  <div class="card-body p-2">
+    <h6 class="card-subtitle text-muted m-0 p-0" th:text="${commit.getCommitId()}"></h6>
+    <div class="d-flex align-items-center pr-3">
+      <h5 class="card-title d-flex flex-grow-1" th:text="${commit.getCommitName()}"></h5>
+      <input th:id="|commit-${commit.getCommitId()}-checkbox|" class="d-flex flex-shrink-1" type="checkbox"/>
+    </div>
+    <div class="row">
+      <p class="text-muted col-auto me-auto pb-0 mb-0" style="font-style: italic;" th:text="${commit.getCommitAuthor()}"></p>
+      <p class="col-auto pb-0 mb-0" th:text="${commit.getCommitDate()}"></p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

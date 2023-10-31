@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="userItem(groupId, userId, userName, fullName, roles)">
+<body>
+    <div th:id="|group-${groupId}-user-${userId}|" class="d-flex row justify-content-between align-items-center align-content-center" style="width: 100%; margin: 0px"
+        th:onclick="|selectGroupUser(event, ${userId}, ${groupId})|">
+        <div class="userName col d-flex flex-grow-1 no-select" th:text="${userName}"></div>
+        <div class="fullName col d-flex flex-grow-1 no-select" th:text="${fullName}"></div>
+        <div class="col no-select">
+            <div class="chip no-select" style="height: auto; line-height: var(--bs-body-line-height)" th:each="role : ${roles}" th:text="${role}"></div>
+        </div>
+    </div>
+</body>
+</html>

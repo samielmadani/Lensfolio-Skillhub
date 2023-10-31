@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="deadlineCreationTemplate(start, end)">
+<body>
+<!-- Deadline Pane -->
+<div class="card d-flex gap-2">
+    <!-- Deadline Pane Header -->
+    <div class="col-md-12 d-flex flex-nowrap" style="font-size: 1.25rem; display: inline-block; background: none; border: none;">
+        <div class="col-md-9" style="background: none; border: none; display: inline-block; padding: 0 0 0 10px;">
+            <i class="bi bi-alarm-fill"></i>
+            <label for="newDeadlineName" class="form-label">Deadline Name</label>
+            <input type="text" oninput="updateCharInfoDeadline()" maxlength="50" placeholder="Deadline Name" value="New Deadline" id="newDeadlineName" class="form-control" required />
+            <div class="invalid-feedback">Deadline Name can't be Empty!</div>
+        </div>
+        <div class="col-md-2 align-self-end ms-1" id="charRemainingDeadlineCreation" style="background: none; border: none; display: inline-block; font-size: 10px; color: gray;"></div>
+
+    </div>
+
+    <!-- Deadline Pane Body -->
+    <div class="col-md-12 p-0" style="background: none; border: none;">
+        <div class="col-md-12 d-flex" style="padding: 0 0 0 10px; background: none; border: none;">
+            <div class="col-md-1 p-0" style="background: none; border: none; display: inline-block;">
+                <i class="bi bi-play-circle"></i>
+            </div>
+            <div class="col-md-11 p-0" style="background: none; border: none; display: inline-block;">
+                <div class="col-md-6 p-0" style="background: none; border: none; display: inline-block;">
+                    <label for="newDeadlineStartDate" class="form-label">Date</label>
+                    <input id="newDeadlineStartDate" type="date" class="form-control" th:min="${start}" th:max="${end}" th:value="${start}" required />
+                    <div class="invalid-feedback">Deadline Start Date must be before Deadline End Date!</div>
+                </div>
+                <div class="col-md-5 p-0" style="background: none; border: none; display: inline-block;">
+                    <label for="newDeadlineStartTime" class="form-label">Time</label>
+                    <input id="newDeadlineStartTime" type="time" class="form-control" value="00:00" />
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-12 d-flex justify-content-center" style="background: none; border: none;">
+            <button class="btn btn-primary" onclick="validateDeadlineCreationForm()" style="margin: 10px;">Create</button>
+            <button class="btn btn-danger" onclick="cancelDeadlineCreate()" style="margin: 10px;">Cancel</button>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

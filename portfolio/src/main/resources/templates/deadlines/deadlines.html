@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="deadlines(allDeadlines)">
+<body>
+<div id="getAllDeadlinesNoneFound" th:if="${allDeadlines.isEmpty()}">No Deadlines For this Project!</div>
+<div th:each="deadline: *{allDeadlines}">
+    <div th:insert="deadlines/deadlinePane :: deadlinePane(deadline=${deadline})"></div>
+</div>
+</body>
+</html>

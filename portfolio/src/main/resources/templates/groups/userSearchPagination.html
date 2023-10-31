@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav th:if="${pages > 0}" th:id="|paginationSearchButtons-${id}|" data-pagenum="1" th:data-maxpage="${pages}">
+    <ul class="pagination" style="justify-content: center">
+        <li class="page-item" th:if="${pages > 1}">
+            <button class="page-link" aria-label="First" th:onclick="|getPaginatedFilteredUsers(${id}, 1)|">
+                <span aria-hidden="true">&laquo;</span>
+            </button>
+        </li>
+        <li class="page-item" th:if="${pages > 1}">
+            <button class="page-link" aria-label="Previous" th:onclick="|changeSearchPage(${id}, -1)|">
+                <span aria-hidden="true"><</span>
+            </button>
+        </li>
+
+        <li class="page-item" th:name="|searchButton-${id}|" th:each="pageNumber: ${#numbers.sequence(1, pages)}" th:id="|group-${id}-pageNumber-${pageNumber}-search|">
+            <button class="page-link" th:onclick="|getPaginatedFilteredUsers(${id}, ${pageNumber})|" th:text="${pageNumber}" th:disabled="${pages <= 1}"></button>
+        </li>
+
+        <li class="page-item" th:if="${pages > 1}">
+            <button class="page-link" aria-label="Next" th:onclick="|changeSearchPage(${id}, 1)|">
+                <span aria-hidden="true">></span>
+            </button>
+        </li>
+        <li class="page-item" th:if="${pages > 1}">
+            <button class="page-link" aria-label="Last" th:onclick="|getPaginatedFilteredUsers(${id}, ${pages})|">
+                <span aria-hidden="true">&raquo;</span>
+            </button>
+        </li>
+    </ul>
+</nav>
+</body>
+</html>

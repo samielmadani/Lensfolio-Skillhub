@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="tableBody(users, isAdmin)">
+<body>
+    <!-- Items -->
+    <tr th:each="user : ${users}" class="user-list-item">
+        <td>
+            <a th:text="${user.getUsername()}" th:href="|user_details?userId=${user.getId()}|" class="m-0" style="display: inline-block;"></a>
+            <a th:href="|evidence?userId=${user.getId()}|" style="display: inline-block; margin-left: 10px; text-decoration-line: none;" class="badge text-bg-primary">View Evidence</a>
+        </td>
+        <td th:text="${user.getName()}"></td>
+        <td th:text="${user.getNickname()}"></td>
+        <td>
+            <!-- Roles -->
+            <div th:id="|user-${user.getId()}-${role}|" th:insert="users/userRoleChip :: chip(${role}, ${user}, ${user.getRoles().size() > 1 && !user.isDefault()}, ${isAdmin})" th:each="role : ${user.getRolesString()}" class="chip chip-list gap-2 px-3"></div>
+
+
+            <!-- Add Role button -->
+            <div th:if="${user.getRoles().size() < 3 && !user.isDefault() && isAdmin}" class="chip chip-list px-3 clickable" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i style="font-size: 13px" class="bi bi-plus-lg"></i>
+            </div>
+
+            <ul class="dropdown-menu">
+                <li><a th:if="${!user.getRolesString().contains('Student')}" class="dropdown-item" th:onclick="|addRole(${user.getId()}, 'Student')|">Student</a></li>
+                <li><a th:if="${!user.getRolesString().contains('Teacher')}" class="dropdown-item" th:onclick="|addRole(${user.getId()}, 'Teacher')|">Teacher</a></li>
+                <li><a th:if="${!user.getRolesString().contains('Course Administrator')}" class="dropdown-item" th:onclick="|addRole(${user.getId()}, 'Course Administrator')|">Course Administrator</a></li>
+            </ul>
+        </td>
+    </tr>
+</body>
+</html>

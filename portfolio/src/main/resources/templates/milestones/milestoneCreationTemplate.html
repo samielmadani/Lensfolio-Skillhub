@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="milestoneCreationTemplate(start, end)">
+<body>
+<!-- Milestone Pane -->
+<div class="card d-flex gap-2">
+    <!-- Milestone Pane Header -->
+    <div class="col-md-12 d-flex flex-nowrap" style="font-size: 1.25rem; display: inline-block; background: none; border: none;">
+        <div class="col-md-9" style="background: none; border: none; display: inline-block; padding: 0 0 0 10px;">
+            <i class="bi bi-flag-fill"></i>
+            <label for="newMilestoneName" class="form-label">Milestone Name</label>
+            <input type="text" oninput="updateMilestoneCharInfo()" maxlength="50" placeholder="Milestone Name" value="New Milestone" id="newMilestoneName" class="form-control" required />
+            <div class="invalid-feedback">Milestone Name can't be Empty!</div>
+        </div>
+        <div class="col-md-2 align-self-end ms-1" id="charRemainingMilestoneCreation" style="background: none; border: none; display: inline-block; font-size: 10px; color: gray;"></div>
+
+    </div>
+
+    <!-- Milestone Pane Body -->
+    <div class="col-md-12 p-0" style="background: none; border: none;">
+        <div class="col-md-12 d-flex" style="padding: 0 0 0 10px; background: none; border: none;">
+            <div class="col-md-1 p-0" style="background: none; border: none; display: inline-block;">
+                <i class="bi bi-play-circle"></i>
+            </div>
+            <div class="col-md-11 p-0" style="background: none; border: none; display: inline-block;">
+                <div class="col-md-11 p-0" style="background: none; border: none; display: inline-block;">
+                    <label for="newMilestoneStartDate" class="form-label">Date</label>
+                    <input id="newMilestoneStartDate" type="date" class="form-control" th:min="${start}" th:max="${end}" th:value="${start}" required />
+                    <div id="invalid-feedback-milestone-start" class="invalid-feedback">Milestone Date must be within the project date range!</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 d-flex justify-content-center" style="background: none; border: none;">
+            <button class="btn btn-primary" onclick="validateMilestoneCreationForm()" style="margin: 10px;">Create</button>
+            <button class="btn btn-danger" onclick="cancelMilestoneCreate()" style="margin: 10px;">Cancel</button>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

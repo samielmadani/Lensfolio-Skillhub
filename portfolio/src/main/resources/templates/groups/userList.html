@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="list(id, users)">
+<body>
+
+<div class="d-flex flex-column align-items-center gap-2">
+    <div th:id="|userContent-${id}|" class="d-flex flex-column gap-2" style="width: 100%">
+        <h4 th:if="${users.size() == 0}">Currently no members in this group</h4>
+        <div th:each="user: ${users}">
+            <div th:replace="groups/userItem :: userItem(${id}, ${user.getId()}, ${user.getUsername()}, ${user.getName()}, ${user.getRoles()})"></div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

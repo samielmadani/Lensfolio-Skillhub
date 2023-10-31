@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="deadlineLineDisplay(deadline)">
+<body>
+<div style="display: inline-flex; padding: 0px; margin: 0px;" th:name="'DeadlinePartial' + ${deadline.getAdventId()}"
+     th:onmouseenter="'animateAllDeadlineAttributes('+${deadline.getAdventId()}+')'" th:onmouseleave="'stopAnimationForDeadline('+${deadline.getAdventId()}+')'">
+    <i th:name="'DeadlineIcon' + ${deadline.getAdventId()}" class="px-2 bi bi-alarm-fill deadlineIcon" style="display: inline;"></i>
+    <div>
+        <p th:text="${deadline.getName()} + '  '" style="display: flex; padding: 0; margin: 0; white-space: nowrap;"></p>
+        <p hidden id="startDate" th:name="'startDate' + ${deadline.getAdventId()}" th:text="${deadline.getStartDate()}  + '  '"
+           style="display: inline-flex; padding: 0; margin: 0; white-space: nowrap; font-size:13px;"></p>
+        <p id="padding" style="display: inline; padding: 13px; margin: 0; white-space: nowrap; font-size:13px;"></p>
+    </div>
+</div>
+</body>
+</html>

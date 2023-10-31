@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="datePicker(sprint)">
+<body>
+<div class="d-flex flex-column gap-1">
+    <div class="d-flex flex-row gap-1">
+        <div class="input-group-sm d-flex">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Start</span>
+            </div>
+            <input type="date"
+                   class="form-control"
+                   aria-describedby="startDate"
+                   onkeydown="return false"
+                   th:id="|sprintStartDate-${sprint.getId()}|"
+                   th:value="${sprint.getStartDateIsoString()}"
+                   th:onchange="|getSprintEndDateBounds(${sprint.getId()})|">
+        </div>
+
+        <div class="input-group-sm d-flex">
+            <div class="input-group-prepend">
+                <span class="input-group-text">End</span>
+            </div>
+            <input type="date"
+                   class="form-control"
+                   aria-describedby="endDate"
+                   onkeydown="return false"
+                   th:id="|sprintEndDate-${sprint.getId()}|"
+                   th:value="${sprint.getEndDateIsoString()}"
+                   th:onchange="|getSprintStartDateBounds(${sprint.getId()})|">
+        </div>
+    </div>
+    <p hidden th:id="|sprintDateFeedback-${sprint.getId()}|" style="color: var(--bs-danger)" class="m-0">There is something wrong with the dates.</p>
+</div>
+</body>
+</html>
+

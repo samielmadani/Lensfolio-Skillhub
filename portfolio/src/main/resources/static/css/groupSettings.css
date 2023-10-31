@@ -1,0 +1,22 @@
+.drop-dwn-btn {
+    transition: 0.2s;
+}
+
+.drop-dwn-btn.expanded {
+    transform: rotate(-90deg);
+}
+
+.commit-body-display {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 !important;
+    transition: max-height 0.2s ease-out;
+}
+
+.border-right {
+    border-radius: 0 var(--bs-btn-border-radius) var(--bs-btn-border-radius) 0;
+}
+
+.border-left {
+    border-radius: var(--bs-btn-border-radius) 0 0 var(--bs-btn-border-radius);
+}

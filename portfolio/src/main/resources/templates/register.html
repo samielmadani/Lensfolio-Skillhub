@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Skillhub: Register </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{css/register.css}" rel="stylesheet">
+    <link th:href="@{webjars/bootstrap/5.2.0/dist/css/bootstrap.css}" rel="stylesheet">
+    <script th:src="@{webjars/bootstrap-validate/2.1.3/dist/bootstrap-validate.js}"></script>
+    <!--Validate input-->
+    <script>
+        $(document).ready(function() {
+            bootstrapValidate('#firstName', 'min:1:Please enter at least 2 characters.|max:20:Please enter a maximum of 20 characters.|alpha:No numbers or special characters.');
+            bootstrapValidate('#middleName', 'max:20:Please enter a maximum of 20 characters. No numbers or special characters.');
+            bootstrapValidate('#lastName', 'min:1:Please enter at least 2 characters.|max:20:Please enter a maximum of 20 characters.|alpha:No numbers or special characters.');
+            bootstrapValidate('#nickname', 'max:20:Please enter a maximum of 20 characters. No numbers or special characters.');
+            bootstrapValidate('#email', 'email:Please enter a correct email format e.g s302@example.com|max:40:Please enter a maximum of 40 characters.');
+            bootstrapValidate('#username', 'alphanum:min:3:Please enter at least 3 characters. No special characters.|max:20:Please enter a maximum of 20 characters.');
+            bootstrapValidate('#password', 'min:8:Please enter at least 8 characters.|regex:^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d):Please enter at least one uppercase, one lowercase and one number.');
+        });
+    </script>
+</head>
+<body>
+
+<div class="container-fluid ps-md-0">
+    <div class="row">
+        <div class="img-left d-none d-md-flex col-md-4 col-lg-6"></div>
+        <div class="col-lg-6">
+            <div class="login align-items-center py-xl-5">
+                <div class="col-md-9 col-lg-8 mx-auto">
+                    <h3 class="login-heading mb-4">Register</h3>
+
+    <form class="form-box mb-3 needs-validation" method="POST" th:object="${pronouns}" th:action="@{register}" novalidate>
+        <div class="form-input form-box mb-3">
+            <span><i class="fa fa-envelope-o"></i></span>
+            <div class="row align-items-center form-inline">
+                <div class="col-md-6">
+                    <div class="data form-input">
+                        <label for="firstName"><b>First Name <b class="required">*</b></b></label>
+                        <input type="firstName" id="firstName" th:value="${firstName}" th:name="firstName" data-test="firstName" required placeholder="Enter First Name" name="firstName">
+                        <span class="input-error" id="errorFirstName"><p th:text="${firstNameError}" data-test="firstNameError"></p></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="data form-input">
+                        <label for="middleName"><b>Middle Name</b></label>
+                        <input type="middleName" th:value="${middleName}" th:name="middleName" placeholder="Enter Middle Name" data-test="middleName" name="middleName" id="middleName">
+                        <span class="input-error" id="errorMiddleName"><p th:text="${middleNameError}"></p></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row align-items-center form-inline">
+                <div class="col-md-6">
+                    <div class="data form-input">
+                        <label for="lastName"><b>Last Name <b class="required">*</b></b></label>
+                        <input type="lastName" th:value="${lastName}" th:name="lastName" required placeholder="Enter Last Name" data-test="lastName" name="lastName" id="lastName">
+                        <span class="input-error" id="errorLastName"><p th:text="${lastNameError}" data-test="lastNameError"></p></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="data form-input">
+                        <label for="nickname"><b>Nick Name</b></label>
+                        <input  type="nickname" th:value="${nickname}" th:name="nickname" placeholder="Enter Nick Name" data-test="nickname" name="nickname" id="nickname">
+                        <span class="input-error" id="errorNickName"><p th:text="${nicknameError}"></p></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row align-items-center form-inline">
+                <div class="col-md-8">
+                    <div class="data form-input">
+                        <label for="email"><b>Email <b class="required">*</b></b></label>
+                        <input type="email" th:value="${email}" th:name="email" required placeholder="Enter Email" data-test="email" name="email" id="email">
+                        <span class="input-error" id="errorEmail"><p th:text="${emailError}" data-test="emailError"></p></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label><b>Pronouns</b></label>
+                    <div class="data form-input">
+                        <select class="form-select" th:field="*{pronoun}">
+
+                            <option th:each="pronoun : ${personalPronouns}"
+                                    th:value="${pronoun}"
+                                    th:text="${pronoun}">
+                            </option>
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="data form-input">
+                <label for="username"><b>Username <b class="required">*</b></b></label>
+                <input type="text" th:value="${username}" th:name="username" id="username" name="username" data-test="username" required placeholder="Enter Username"/>
+                <span class="input-error" id="errorUsername"><p data-test="usernameError" th:text="${usernameError}"></p></span>
+            </div>
+
+            <div class="data form-input">
+                <label for="password"><b>Password <b class="required">*</b></b></label>
+                <input type="password" th:value="${password}" th:name="password" placeholder="Enter Password" data-test="password" name="password" id="password" required minlength="1"/>
+                <span class="input-error" id="errorPassword"><p th:text="${passwordError}" data-test="passwordError"></p></span>
+            </div>
+
+        </div>
+
+        <div class="mb-3 align-content-center">
+            <div>
+                <button class="btn btn-lg btn-primary btn-login btn-block loginBtn m-0" type="submit" data-test="register" id="signupButton">REGISTER</button>
+                <div class="alert alert-light alert-dismissible fade show">
+                    <strong id="error" th:text="${isSuccess}"></strong>
+                </div>
+            </div>
+            <div>
+                <form method="GET" th:action="@{login}">
+                    <div class="text-center mb-2">
+                        Already have an account? <a th:href="@{login}" class="login-link">Login</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </form>
+    </div>
+    </div>
+    </div>
+    </div>
+</div>
+</body>

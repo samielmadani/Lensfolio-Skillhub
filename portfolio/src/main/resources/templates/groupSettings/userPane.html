@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="userPane(users)">
+<body>
+<!-- Header -->
+<div class="card-header d-flex justify-content-between align-items-center align-content-center" style="background-color: steelblue; border-bottom: none; padding: 0;">
+    <!-- User Label -->
+    <ul class="nav nav-tabs" style="border-bottom: none;">
+        <li class="nav-item">
+            <div class="nav-link active m-0 p-0" style="border-top-right-radius: 0; border-top: none; border-left: none;" aria-current="true">
+                <h4 class="p-2">Group Users</h4>
+            </div>
+        </li>
+    </ul>
+
+    <!-- Group User Information -->
+    <div style="color: white; padding-right: 15px;">
+        <i class="bi bi-person-fill" style="display: inline-block; font-size: 25px;"></i>
+        <p style="display: inline-block; font-size: 25px;" th:text="${users.size()}"></p>
+    </div>
+</div>
+
+<div class="card-body">
+    <!-- INSERT USER INFO HERE -->
+    <div th:each="user: ${users}">
+        <div th:insert="groupSettings/userLine :: userLine(${user})"></div>
+    </div>
+</div>
+</body>
+</html>

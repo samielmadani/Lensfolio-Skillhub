@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="eventEditPane(event, start, end)">
+<body>
+<!-- Event Pane -->
+<div th:id="'EventUpdate' + ${event.getEventId()}" class="card d-flex">
+    <!-- Event Pane Header -->
+    <div class="col-md-12 d-flex flex-nowrap" style="font-size: 1.25rem; display: inline-block; background: none; border: none;">
+        <div class="col-md-9" style="background: none; border: none; display: inline-block; padding: 0 0 0 10px;">
+            <i class="bi bi-calendar-fill"></i>
+            <label for="eventUpdateName" class="form-label">Event Name</label>
+            <input oninput="updateEventCharInfoEdit()" maxlength="50" type="text" placeholder="Event Name" th:value="${event.getName()}" id="eventUpdateName" class="form-control" required />
+            <div class="invalid-feedback">Event Name can't be Empty!</div>
+        </div>
+        <div class="col-md-2 align-self-end ms-1" id="charRemainingEventEdit" style="background: none; border: none; display: inline-block; font-size: 10px; color: gray;"></div>
+
+    </div>
+
+    <!-- Event Pane Body -->
+    <div class="col-md-12 p-0" style="background: none; border: none;">
+        <div class="col-md-12 d-flex" style="padding: 0 0 0 10px; background: none; border: none;">
+            <div class="col-md-1 p-0" style="background: none; border: none; display: inline-block;">
+                <i class="bi bi-play-circle"></i>
+            </div>
+            <div class="col-md-11 p-0" style="background: none; border: none; display: inline-block;">
+                <div class="col-md-6 p-0" style="background: none; border: none; display: inline-block;">
+                    <label for="eventUpdateStartDate" class="form-label">Start Date</label>
+                    <input id="eventUpdateStartDate" type="date" class="form-control" th:min="${start}" th:max="${end}" th:value="${event.getStartDateISOString()}" required />
+                    <div class="invalid-feedback">Event Start Date must be before Event End Date!</div>
+                </div>
+                <div class="col-md-5 p-0" style="background: none; border: none; display: inline-block;">
+                    <label for="eventUpdateStartTime" class="form-label">Start Time</label>
+                    <input id="eventUpdateStartTime" type="time" class="form-control" th:value="${event.getStartTime()}" />
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-12 d-flex" style="padding: 0 0 0 10px; background: none; border: none;">
+            <div class="col-md-1 p-0" style="background: none; border: none; display: inline-block;">
+                <i class="bi bi-flag-fill"></i>
+            </div>
+            <div class="col-md-11 p-0" style="background: none; border: none; display: inline-block;">
+                <div class="col-md-6 p-0" style="background: none; border: none; display: inline-block;">
+                    <label for="eventUpdateEndDate" class="form-label">End Date</label>
+                    <input id="eventUpdateEndDate" type="date" class="form-control" th:min="${start}" th:max="${end}" th:value="${event.getEndDateISOString()}" required />
+                    <div class="invalid-feedback">Event Start Date must be before Event End Date!</div>
+                </div>
+                <div class="col-md-5 p-0" style="background: none; border: none; display: inline-block;">
+                    <label for="eventUpdateEndTime" class="form-label">End Time</label>
+                    <input id="eventUpdateEndTime" type="time" class="form-control" th:value="${event.getEndTime()}" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 d-flex justify-content-center" style="padding: 0 0 0 10px; background: none; border: none;">
+            <button class="btn btn-primary" th:onclick="'validateUpdateForm('+*{event.getEventId()}+')'" style="margin: 10px;">Update</button>
+            <button class="btn btn-danger" th:onclick="'cancelEventUpdate('+*{event.getEventId()}+')'" style="margin: 10px;">Cancel</button>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

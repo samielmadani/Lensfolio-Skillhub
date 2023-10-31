@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link th:href="@{webjars/bootstrap/5.2.0/dist/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{css/home.css}" rel="stylesheet">
+    <link th:href="@{css/header.css}" rel="stylesheet">
+    <script th:src="@{webjars/bootstrap/5.2.0/dist/js/bootstrap.bundle.js}" type="text/javascript"></script>
+
+    <title>Skillhub: Home</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body class="d-flex flex-column" style="height: 100vh">
+<div th:insert="fragments/navbar :: navbar"></div>
+<div class="header">
+    <div class="dropdown-content">
+        <a th:href="@{user_details}">User Details</a>
+        <a th:href="@{logout}">Logout</a>
+    </div>
+    <button class="dropbtn" th:text="${username}"></button>
+    <div>
+        <img src="api/user/profilePicture" alt="User" style="width: 50px; height: 50px; border-radius: 50%;">
+    </div>
+
+</div>
+
+<!-- Header -->
+<header class="w3-container w3-theme w3-padding" id="myHeader">
+    <div class="w3-center">
+        <h4>Welcome to Skillhub</h4>
+        <h1 class="w3-xxxlarge w3-animate-top">A place to keep your skills and evidences of learning</h1>
+        <div class="w3-padding-32">
+            <a th:href="@{projects}" class="btn btn-lg btn-primary btn-login btn-block loginBtn m-0" onclick="document.getElementById('id01').style.display='block'" style="font-weight:500;">Start a new project</a>
+        </div>
+    </div>
+</header>
+
+<div class="d-flex" style="margin: 1rem;">
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 w3-card w3-container">
+            <h3>Project Details</h3><br>
+            <i class="fa fa-desktop w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
+            <p>Create, edit projects and sprints</p>
+            <p>Set up events, deadlines, milestones</p>
+        </div>
+
+        <div class="col-md-4 w3-card w3-container">
+            <h3>Monthly Planner</h3><br>
+            <i class="fa fa-css3 w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
+            <p>View project in a monthly planner</p>
+            <p>View events/deadlines/milestones in a monthly planner</p>
+        </div>
+
+        <div class="col-md-4 w3-card w3-container">
+            <h3>User Details</h3><br>
+            <i class="fa fa-diamond w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
+            <p>View and update user details</p>
+            <p>Upload user profile photo</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 w3-card w3-container">
+            <h3>Users List</h3><br>
+            <i class="fa fa-desktop w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
+            <p>View all the users of this application</p>
+            <p>Search for a user and view their evidence</p>
+
+        </div>
+
+        <div class="col-md-4 w3-card w3-container">
+            <h3>Create Group</h3><br>
+            <i class="fa fa-css3 w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
+            <p>Create a group and add specific users</p>
+            <p>Link the group project to the group to work together</p>
+        </div>
+
+        <div class="col-md-4 w3-card w3-container">
+            <h3>User Evidence</h3><br>
+            <i class="fa fa-diamond w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
+            <p>Create skills evidence</p>
+            <p>Add skills tag and display on the Evidence panel</p>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

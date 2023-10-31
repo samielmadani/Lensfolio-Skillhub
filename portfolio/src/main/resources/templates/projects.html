@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<html lang="en">
+<head>
+    <link th:href="@{webjars/bootstrap/5.2.0/dist/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{css/header.css}" rel="stylesheet">
+    <script th:src="@{webjars/bootstrap/5.2.0/dist/js/bootstrap.bundle.js}" type="text/javascript"></script>
+    <script th:src="@{webjars/jquery/3.6.0/dist/jquery.js}" type="text/javascript"></script>
+    <meta charset="UTF-8">
+    <title>Skillhub: Projects</title>
+</head>
+<script>
+    $(document).ready(function(){
+        $('[data-bs-toggle="tooltip"]').tooltip();
+    });
+</script>
+<body class="d-flex flex-column" style="height: 100vh">
+<div th:insert="fragments/navbar :: navbar"></div>
+<div class="header">
+    <div class="dropdown-content">
+        <a th:href="@{user_details}">User Details</a>
+        <a th:href="@{logout}">Logout</a>
+    </div>
+    <button class="dropbtn" th:text="${username}"></button>
+    <div>
+        <img src="api/user/profilePicture" alt="User" style="width: 50px; height: 50px; border-radius: 50%;">
+    </div>
+
+</div>
+
+    <div th:each="project: ${projects}">
+        <form th:action="@{project}" method="get">
+            <div class="card text-center shadow-sm project d-flex justify-content-center" style="width: 95%; align-self: center; margin: auto; margin-top: 25px;">
+                <div class="card-header d-flex align-items-center align-content-center" style="border-bottom: none; padding: 0; background-color: steelblue;">
+                    <!-- Main Tab -->
+                    <ul class="nav nav-tabs" style="border-bottom: none; width: 40%; height: 100%;">
+                        <li class="nav-item" style="width: 100%">
+                            <div class="nav-link active row p-0 m-0 d-flex" style="border-top-right-radius: 0; border-top: none; border-left: none; height: 100%;" aria-current="true">
+                                <div class="p-0 col-10" style="margin-left: 5px; text-align: start;">
+                                    <!-- TEXT -->
+                                    <h4 style="text-align: start; margin-bottom: 0 !important;" class="m-2" th:text="${project.getName()}">
+                                        <!-- Name -->
+                                    </h4>
+                                </div>
+
+                            </div>
+                        </li>
+                    </ul>
+
+                    <!-- Header Content -->
+                    <div style="justify-content: flex-start; display: flex;" class="row px-2">
+                        <!-- Names of users here vvvv -->
+                        <p style="color: white; font-style: italic; text-align: start; margin-bottom: 0;" class="col-12" ></p>
+                        <div class="col-12">
+                            <!-- Skills added here -->
+                            <div id="current-tags" class="m-0 d-flex">
+                                <ol style="display: inline-flex; margin-bottom: 0px; padding-left: 0px;">
+                                    <a class="pill" style="color: black; text-decoration: none;" ></a>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="ms-auto" style="color: white; margin-bottom: 0; margin-right: 5px">Dates: <span id="projectStartDetails" th:text="${project.getFormattedStartDate()}"/> - <span id="projectEndDetails" th:text="${project.getFormattedEndDate()}"/></p>
+
+                </div>
+                <div class="card-body d-flex flex-column" style="text-align: start">
+                    <div>
+                        <p class="card-text" th:text="${project.getDescription()}"></p>
+                    </div>
+                    <br>
+
+                    <form th:action="@{project}" method="get">
+                        <input type="hidden" th:name="projectID" th:value="*{project.getId()}"/>
+                        <div style="width: 100%; gap: 0.5rem" class="d-flex justify-content-end mb-3">
+                            <button type="submit" th:data-test="|selectProject-${project.getId()}|" class="btn btn-outline-primary">See details</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </form>
+
+        </div>
+
+    <div th:if="${isAdmin}" style="background-color: white; position: sticky; bottom: 0" class="d-flex flex-column align-items-center p-3">
+        <a data-test="addProjectButton" th:href="@{api/createProject}" style="width: fit-content; border-radius: 100px; border-width: 3px; padding: 0" class="btn btn-outline-success" data-bs-toggle="tooltip" title="Create new project">
+            <svg width="35" height="35" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+            </svg>
+        </a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="evidenceCreationModal(project, groups, sprints)">
+<body>
+<div class="modal fade" id="evidence-creation-pane" tabindex="-1" aria-labelledby="evidenceModalLabel" aria-hidden="true" style="--bs-modal-width: 700px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="evidenceModalLabel">Create New Evidence</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Body -->
+            <div class="modal-body">
+                <div>
+                    <label for="newEvidenceName" class="form-label">Name *</label>
+                    <input type="text" oninput="validateInput()" data-test="newEvidenceName" maxlength="50" placeholder="New Evidence" value="New Evidence" id="newEvidenceName" class="form-control" required />
+                    <div class="invalid-feedback">Evidence Name must exist!</div>
+                    <div id="charRemainingEvidenceCreation" style="background: none; border: none; display: inline-block; font-size: 10px; color: gray;">38 Characters Remaining</div>
+                </div>
+
+                <div>
+                    <label for="newEvidenceDescription" class="form-label">Description *</label>
+                    <textarea oninput="validateInput()" id="newEvidenceDescription" maxlength="150" data-test="newEvidenceDescription" placeholder="Evidence Description" required class="form-control"></textarea>
+                    <div class="invalid-feedback">Evidence Description must exist!</div>
+                    <div id="charRemainingEvidenceDescriptionCreation" style="background: none; border: none; display: inline-block; font-size: 10px; color: gray;">150 Characters Remaining</div>
+                </div>
+
+                <div class="row d-flex">
+                    <div class="col-10">
+                        <label for="newEvidenceDate" class="form-label">Date *</label>
+                        <input type="date" oninput="validateInput()" id="newEvidenceDate" data-test="newEvidenceDate" class="form-control" th:min="${project.getStartDateIsoString}" th:max="${project.getEndDateIsoString}" required />
+                        <div class="invalid-feedback">Date must be within project range!</div>
+                    </div>
+                    <a class="col-2" style="top: 40px; position: relative; width: 40px; height: 25px;" href="#" data-bs-toggle="tooltip" title="This date is the date this evidence occurred. You can only enter dates in the project range.">
+                        <i class="bi bi-question-circle"></i>
+                    </a>
+                </div>
+
+                <div>
+                    <label for="addUsersInput" class="form-label">Add Users: </label>
+                    <span id="usersInEvidence" style="font-style: italic; color: gray;"></span>
+                    <input type="text" onblur="closeUserDropdown()"  onfocus="showUserDropdown()" oninput="getUsers()" id="addUsersInput" placeholder="Add User By Name" value="" class="form-control" />
+                    <div id="userSearchArea" class="userSearchArea"></div>
+                </div>
+
+                <div>
+                    <label for="newSkillName" class="form-label">Tags</label>
+                    <input type="text" maxlength="30" oninput="handleSkills(event)" onkeydown="handleSkills(event)" data-test="newSkillName" placeholder="eg. Team_Communication" value="" id="newSkillName" class="form-control"/>
+                    <div class="invalid-feedback" id="skillErrorMessage">Invalid Format</div>
+                    <div id="evidenceSkillSuggestionArea"></div>
+                    <div id="skillTagsArea" class="d-flex py-2 flex-wrap"></div>
+                    <div id="charRemainingEvidenceTagSkillsCreation" style="background: none; border: none; display: inline-block; font-size: 10px; color: gray;">30 Characters Remaining</div>
+                </div>
+
+                <div class="dropdown">
+                    <label class="form-label" >Categories: </label>
+                    <span id="category-text" style="font-style: italic; color: dimgray;"></span>
+                    <button type="button" class="bi bi-plus-circle-fill" data-test="categories" data-bs-toggle="dropdown" data-bs-auto-close="outside" style="color: #4682B4; border-radius: 50px; border: none; background-color: white;" aria-expanded="false"></button>
+                    <ul class="dropdown-menu">
+                        <li class="list-group-item p-2 py-0">
+                            <input data-test="quantitative" class="form-check-input me-1" id="quantitative-checkbox" onchange="updateCategory('Quantitative Skill')" type="checkbox" value="">
+                            <label for="quantitative-checkbox" style="user-select: none;">Quantitative Skill</label>
+                        </li>
+                        <li class="list-group-item p-2 py-0">
+                            <input data-test="qualitative" class="form-check-input me-1" id="qualitative-checkbox" onchange="updateCategory('Qualitative Skill')" type="checkbox" value="">
+                            <label for="qualitative-checkbox" style="user-select: none;">Qualitative Skill</label>
+                        </li>
+                        <li class="list-group-item p-2 py-0">
+                            <input data-test="service" class="form-check-input me-1" id="service-checkbox" onchange="updateCategory('Service')" type="checkbox" value="">
+                            <label for="service-checkbox" style="user-select: none;">Service</label>
+                        </li>
+                    </ul>
+                </div>
+
+                <hr />
+
+                <!--Create Web Link Button-->
+                <div class="dropdown">
+                    <label class="form-label">Add Web Link</label>
+                    <button onclick="createNewWebLinkTemplate()" type="button" class="bi bi-plus-circle-fill" data-bs-toggle="dropdown" style="color: #4682B4; border-radius: 50px; border: none; background-color: white;">
+                    </button>
+                </div>
+
+                <div class="d-none" id="web-link-creation" th:insert="evidence/webLink :: webLinkCreation()"></div>
+                <ol ></ol>
+                <ol id="webLinkList" class="webLinkList" style="list-style-type: none; " href="#" ></ol>
+
+                <hr />
+
+                <button type="button" class="btn btn-secondary mb-2" onclick="toggleLinkCommit()">Link a new commit</button>
+
+                <!-- Link Commits -->
+                <div id="linkCommitContainer" hidden style="display: flex" class=" flex-column gap-2">
+                    <div>
+                        <div class="d-flex justify-content-center gap-3">
+                            <!-- Select Group -->
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Filter by Group</button>
+                                <ul class="dropdown-menu">
+
+                                    <li th:each="group: ${groups}">
+                                        <a class="dropdown-item" href="#" th:text="${group.getGroupName()}" th:onclick="|changeGroup(${group.getGroupId()})|" ></a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Select Sprint -->
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Filter by Sprint</button>
+                                <ul class="dropdown-menu">
+                                    <li th:each="sprint : ${sprints}">
+                                        <a class="dropdown-item" th:text="${sprint.getName}" href="#" onclick="sprintClicked(this)" th:data-datestart="${sprint.getStartDateIsoString()}" th:data-dateend="${sprint.getEndDateIsoString()}"></a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#" onclick="sprintClicked(this)" data-datestart="" data-dateend="">Clear</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- Select User -->
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Filter by User</button>
+                                <ul class="dropdown-menu" id="userDropdownArea">
+                                </ul>
+                            </div>
+
+                            <!-- Enter a commit number -->
+                            <div class="row">
+                                <input type="text" placeholder="Commit Number" value="" id="newLinkedCommitId" class="form-control col" style="font-size: small">
+                                <button class="btn btn-outline-primary col px-0" onclick="searchByCommitId()">Search</button>
+                            </div>
+                        </div>
+
+                        <!-- Select a commit date range -->
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-row align-middle" id="newCommitDateSearch" style="padding-bottom: 10px">
+                                <div class="d-flex flex-column" style="padding-right: 10px; width: 50%">
+                                    <label class="form-label" for="startDateRange" style="white-space: normal">Range Start: </label>
+                                    <input type="date" id="startDateRange" class="form-control" style="font-size: small" oninput="startDateModified()" th:min="${project.getStartDateIsoString}" th:max="${project.getEndDateIsoString}">
+                                    <span class="invalid-feedback">Start Date must occur before End Date!</span>
+                                </div>
+                                <div class="d-flex flex-column" style="width: 50%">
+                                    <div class="row">
+                                        <label class="form-label col" for="endDateRange" style="white-space: normal">Range End: </label>
+                                        <button class="col btn " style="font-size: 12px;" onclick="clearDates()">Reset Dates</button>
+                                    </div>
+                                    <input type="date" id="endDateRange" class="form-control" style="font-size: small" oninput="endDateModified()" th:min="${project.getStartDateIsoString}" th:max="${project.getEndDateIsoString}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="linkedCommitsContainer">Results</label>
+                        <div id="linkedCommitsContainer" class="p-1" style="border: 1px solid black; max-height: 200px; overflow-y: scroll;">
+                            <div id="linkedCommitsList" class="d-flex flex-column gap-1" style="word-break: break-all">
+
+                            </div>
+                            <div hidden style="display: flex" id="commitLoadingIcon" class="justify-content-center">
+                                <div class="spinner-border" role="status"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="commitTagsArea" class="d-flex gap-1 py-2 flex-wrap">
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- Footer -->
+            <div class="modal-footer">
+                <button onclick="resetEventCreationForm()" type="button" class="btn btn-danger" data-test="cancel" data-bs-dismiss="modal">Cancel</button>
+                <button onclick="createNewEvidence()" data-test="save" id="evidence-creation-button" disabled type="button" class="btn btn-success">Create</button>
+                <button hidden onclick="updateEvidence()" data-test="edit" id="evidence-edit-button" type="button" class="btn btn-success">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

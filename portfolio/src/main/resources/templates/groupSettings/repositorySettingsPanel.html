@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="repositorySettingsPanel(repository, groupId)">
+<body>
+<div class="card shadow-sm p-2 d-flex" style="width: 90%">
+    <div class="row">
+        <h3 class="col-md-auto">Group Repository Settings - </h3>
+        <p id="repositoryStatusMessage" class="col-md-auto m-0 align-self-center" style="color: darkgray; font-style: italic;">Linked, no errors</p>
+    </div>
+
+    <form class="row" onsubmit="return false" style="width: 100%;">
+        <div class="col-md-3">
+            <label for="linkRepoKey" class="form-label" style="margin-bottom: 0; font-style: italic; color: darkgray;">Link Repo API Key</label>
+            <input type="text" placeholder="Repo API Key" th:value="${repository.getRepoAPIKey()}" id="linkRepoKey" class="form-control" />
+        </div>
+        <div class="col-md-2">
+            <label for="repoProjectIdInput" class="form-label" style="margin-bottom: 0; font-style: italic; color: darkgray;">Repository Project ID</label>
+            <input type="number" placeholder="Repository Project ID" th:value="${repository.getProjectId()}" id="repoProjectIdInput" class="form-control" />
+        </div>
+        <div class="col-md-auto">
+            <button class="btn btn-primary mb-3" style="margin-top: 22px; margin-bottom: 0;" th:onclick="|linkRepository(${groupId})|" >Link</button>
+        </div>
+
+        <div class="col-md-4">
+            <label for="repoAliasInput" class="form-label" style="margin-bottom: 0; font-style: italic; color: darkgray;">Update Repo Alias</label>
+            <input type="text" placeholder="Repo Alias" th:value="${repository.getRepoAlias()}" id="repoAliasInput" class="form-control" />
+            <div class="invalid-feedback">Repo Alias can't be empty!</div>
+        </div>
+        <div class="col-md-auto">
+            <button class="btn btn-primary mb-3" style="margin-top: 22px; margin-bottom: 0;" th:onclick="|updateRepoAlias(${groupId})|">Update</button>
+        </div>
+    </form>
+
+    <div class="align-self-center" style="width: 100%" th:insert="groupSettings/branchInfo :: branchInfo(${repository.getBranches()})"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<h3 th:if="${users.size() < 1}" style="width: auto;">No Users Match Query!</h3>
+<div th:each="user : ${users}" style="width: 100%">
+    <div th:if="${isAdmin&&getGroup!='TS'||isCourseAdmin}">
+        <div th:if="${user.isInGroup()}">
+            <div th:id="|group-${groupId}-user-${user.getId()}|" class="d-flex row justify-content-between align-items-center align-content-center" style="background: rgba(13, 110, 253, 0.5); width: 100%; margin: 0"
+                 th:onclick="|selectSearchedUser(${user.getId()}, ${groupId})|" data-bs-toggle="modal" data-bs-target="#removeSelectedUsers">
+                <div class="userName col d-flex col-md-3 no-select" th:text="${user.getUsername()}"></div>
+                <div class="fullName col d-flex col-md-3 no-select" th:text="${user.getName()}"></div>
+                <div class="col no-select col-md-6">
+                    <div class="chip no-select" style="height: auto; line-height: var(--bs-body-line-height)" th:each="role : ${user.getRoles()}" th:text="${role}"></div>
+                </div>
+            </div>
+        </div>
+        <div th:unless="${user.isInGroup()}">
+            <div th:id="|group-${groupId}-user-${user.getId()}|" class="d-flex row justify-content-between align-items-center align-content-center" style="width: 100%; margin: 0"
+                 th:onclick="|selectSearchedUser(${user.getId()}, ${groupId})|" data-bs-toggle="modal" data-bs-target="#addSelectedUsers">
+                <div class="userName col d-flex col-md-3 no-select" th:text="${user.getUsername()}"></div>
+                <div class="fullName col d-flex col-md-3 no-select" th:text="${user.getName()}"></div>
+                <div class="col no-select col-md-6">
+                    <div class="chip no-select" style="height: auto; line-height: var(--bs-body-line-height)" th:each="role : ${user.getRoles()}" th:text="${role}"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div th:unless="${isAdmin&&getGroup!='TS'||isCourseAdmin}">
+        <div th:if="${user.isInGroup()}">
+            <div th:id="|group-${groupId}-user-${user.getId()}|" class="d-flex row justify-content-between align-items-center align-content-center" style="background: rgba(13, 110, 253, 0.5); width: 100%; margin: 0">
+                <div class="userName col d-flex col-md-3 no-select" th:text="${user.getUsername()}"></div>
+                <div class="fullName col d-flex col-md-3 no-select" th:text="${user.getName()}"></div>
+                <div class="col no-select col-md-6">
+                    <div class="chip no-select" style="height: auto; line-height: var(--bs-body-line-height)" th:each="role : ${user.getRoles()}" th:text="${role}"></div>
+                </div>
+            </div>
+        </div>
+        <div th:unless="${user.isInGroup()}">
+            <div th:id="|group-${groupId}-user-${user.getId()}|" class="d-flex row justify-content-between align-items-center align-content-center" style="width: 100%; margin: 0">
+                <div class="userName col d-flex col-md-3 no-select" th:text="${user.getUsername()}"></div>
+                <div class="fullName col d-flex col-md-3 no-select" th:text="${user.getName()}"></div>
+                <div class="col no-select col-md-6">
+                    <div class="chip no-select" style="height: auto; line-height: var(--bs-body-line-height)" th:each="role : ${user.getRoles()}" th:text="${role}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

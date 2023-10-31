@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:if="${users.size() > 0}">
+    <ul class="userDropdown card">
+        <li th:each="user: ${users}" class="list-group-item p-2 py-0">
+            <button th:onclick="|addUserToEvidence(${user.getId()})|" th:id="|user-result-${user.getId()}|" th:text="${user.getName()}" class="userButton"></button>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

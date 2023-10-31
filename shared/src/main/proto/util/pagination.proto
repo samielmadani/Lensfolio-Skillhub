@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package nz.ac.canterbury.seng302;
+
+option java_multiple_files = true;
+option java_package = "nz.ac.canterbury.seng302.shared.util";
+option java_outer_classname = "PaginationProto";
+
+message PaginationRequestOptions {
+    int32 Offset = 1; // How many results to skip (offset of 0 means start at beginning, i.e page 1)
+    int32 Limit = 2; // Max results to get - "results per page"
+    string OrderBy = 3; // When paginating, we must sort on the server, not the frontend (why is this?)
+    bool IsAscendingOrder = 4;
+}
+
+message PaginationResponseOptions {
+    int32 ResultSetSize = 1; // How many possible results there are (so we can say how many 'pages' are needed)
+}

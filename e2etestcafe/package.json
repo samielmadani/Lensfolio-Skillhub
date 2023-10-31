@@ -1,0 +1,17 @@
+{
+  "name": "e2etestcafe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test-e2e": "testcafe chrome tests/**/*.e2e.js -e"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "testcafe": "^2.0.0"
+  }
+}

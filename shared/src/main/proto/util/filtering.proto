@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package nz.ac.canterbury.seng302;
+
+option java_multiple_files = true;
+option java_package = "nz.ac.canterbury.seng302.shared.util";
+option java_outer_classname = "FilteringProto";
+
+message BasicStringFilteringOptions {
+    string FilterText = 1;
+}
